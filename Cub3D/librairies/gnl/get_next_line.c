@@ -6,7 +6,7 @@
 /*   By: psaumet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 13:00:39 by psaumet           #+#    #+#             */
-/*   Updated: 2020/03/12 18:23:58 by psaumet          ###   ########.fr       */
+/*   Updated: 2020/03/12 19:42:12 by psaumet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		get_next_line(int fd, char **line)
 	char		buffer[BUFFER_SIZE + 1];
 	char		*tmp;
 
+	printf("BUFFER_SIZE=%d\n", BUFFER_SIZE);
 	if (fd < 0 || line == NULL)
 		return (-1);
 	while ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)

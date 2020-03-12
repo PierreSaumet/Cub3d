@@ -6,7 +6,7 @@
 /*   By: psaumet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:34:25 by psaumet           #+#    #+#             */
-/*   Updated: 2020/03/12 19:31:47 by psaumet          ###   ########.fr       */
+/*   Updated: 2020/03/12 19:51:43 by psaumet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@
 
 int		ft_check(char *argv)
 {
-	char	*ext;
-	char	*tmp;
 	int		i;
-	int		j;
 
-	ext = "cub";
 	i = 0;
-	j = 0;
 	while(argv[i])
 	{
 		if (argv[i] == '.')
@@ -40,13 +35,23 @@ int		ft_check(char *argv)
 
 void	ft_parsing(char *argv)
 {
-	int	fd;
+	int		fd;
+	int		ret;
 	char	*line;
 
 	fd = open(argv, O_RDONLY);
-	if (fd == 3)
-		printf("ok\n");
-	else
+	ret = 0;
+	line = NULL;
+	if (fd == -1)
 		printf("Error Fie Descriptor %d\n", fd);
-	printf("FD = %d, GNL = %d/%s\n", fd, get_next_line(fd, &line), line);
+	else
+	{
+		while ((ret = get_next_line(fd, &line) > 0))
+		{
+			printf("line = %s\n", line);
+			free(line);
+		}
+	}
+
+//	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
 }

@@ -14,6 +14,24 @@
 #include "../headers/libft.h"
 #include <stdio.h>
 
+int		ft_get_info(char *line)
+{
+	int	i;
+	char	tab[9][2];
+
+	tab[0][0] = 'R';
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 'R')
+		{
+			printf("ok\n tab=%s\n", *tab);
+		}
+		i++;
+	}
+	printf("end of get info\n)");
+}
+
 int		ft_check(char *argv)
 {
 	int		i;
@@ -49,6 +67,7 @@ void	ft_parsing(char *argv)
 		while ((ret = get_next_line(fd, &line) > 0))
 		{
 			printf("line = %s\n", line);
+			ft_get_info(line);
 			free(line);
 		}
 	}

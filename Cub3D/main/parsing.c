@@ -10,29 +10,75 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../headers/cub3D.h"
 #include "../headers/get_next_line.h"
 #include "../headers/libft.h"
-#include <stdio.h>
 
-int		ft_get_info(char *line)
+void		ft_onechar(char *line)
 {
-	int	i;
-	char	tab[9][2];
 
-	tab[0][0] = 'R';
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == 'R')
-		{
-			printf("ok\n tab=%s\n", *tab);
-		}
-		i++;
-	}
-	printf("end of get info\n)");
 }
 
-void	ft_parsing(char *argv)
+void		ft_twochar(char *line)
+{
+
+}
+
+int			ft_get_res(char *line)
+{
+	printf("get res line = %s\n", line);
+	while (*line != 'R')
+	{
+		if (*line == ' ')
+			line++;
+		else
+		{
+			printf("ERROR DANS R %c\n", *line);
+			line++;
+		}
+			
+	}
+	line++;
+	printf("du coup line =%c\n", *line);
+}
+
+int			ft_firstchar(char c)
+{
+	if (c == 'R' || c == 'S' || c == 'F')
+		return (1);
+	else if (c == 'N' || c == 'S' || c == 'W' || c == 'W')
+		return (2);
+	else
+		return (0);
+}
+
+int			ft_get_info(char *line)
+{
+	int		i;
+	t_pars	pars;
+
+	i = 0;
+	ft_init_t_pars(&pars);
+	while (*line && ft_isspace((int)*line) == 1)
+		line++;
+	if (ft_isupper((int)*line) == 1 && ft_firstchar(*line) > 0)
+	{
+		printf("Ok la suite...\n");
+		if (ft_firstchar(*line) == 1)
+			ft_onechar(line);
+		else
+			ft_twochar(line);
+		
+	}
+	else
+	{
+		printf("Erreur, pas pris em compte\n");
+		exit(EXIT_FAILURE);
+	}
+	printf("line=%c\n", *line);
+}
+
+void		ft_parsing(char *argv)
 {
 	int		fd;
 	int		ret;
@@ -56,7 +102,7 @@ void	ft_parsing(char *argv)
 //	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
 }
 
-int		ft_check(char *argv)
+int			ft_check(char *argv)
 {
 	int		i;
 

@@ -13,6 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdio.h>
+# include <stdlib.h>
 /*
 **  This structure will contains all the data used for creation of the map.
 **  You will find the resolution, different paths, sprite texture, floor
@@ -38,4 +40,5 @@ typedef struct      s_pars
 
 void		ft_parsing(char *argv);
 int			ft_check(char *argv);
+void        ft_init_t_pars(t_pars *val);
 #endif

@@ -32,6 +32,30 @@ int		ft_get_info(char *line)
 	printf("end of get info\n)");
 }
 
+void	ft_parsing(char *argv)
+{
+	int		fd;
+	int		ret;
+	char	*line;
+
+	fd = open(argv, O_RDONLY);
+	ret = 0;
+	line = NULL;
+	if (fd == -1)
+		printf("Error File Descriptor %d\n", fd);
+	else
+	{
+		while ((ret = get_next_line(fd, &line) > 0))
+		{
+			printf("line = %s\n", line);
+			ft_get_info(line);
+			free(line);
+		}
+	}
+
+//	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
+}
+
 int		ft_check(char *argv)
 {
 	int		i;
@@ -49,28 +73,4 @@ int		ft_check(char *argv)
 	}
 	ft_putstr("ERROR, only one argument with the extension '.cub'\n");
 	return (1);
-}
-
-void	ft_parsing(char *argv)
-{
-	int		fd;
-	int		ret;
-	char	*line;
-
-	fd = open(argv, O_RDONLY);
-	ret = 0;
-	line = NULL;
-	if (fd == -1)
-		printf("Error Fie Descriptor %d\n", fd);
-	else
-	{
-		while ((ret = get_next_line(fd, &line) > 0))
-		{
-			printf("line = %s\n", line);
-			ft_get_info(line);
-			free(line);
-		}
-	}
-
-//	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
 }

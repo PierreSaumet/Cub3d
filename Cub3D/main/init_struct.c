@@ -18,12 +18,14 @@
 void        ft_init_t_pars(t_pars *val)
 {
     int     i;
+    int     d;
     char    c;
 
     i = 0;
+    d = 0;
     c = 'Q';
     val->pt_rx = &i;
-    val->pt_ry = &i;
+    val->pt_ry = &d;
     val->pt_fr = &i;
     val->pt_fg = &i;
     val->pt_fb = &i;

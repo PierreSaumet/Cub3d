@@ -14,100 +14,50 @@
 #include "../headers/get_next_line.h"
 #include "../headers/libft.h"
 
-int		ft_onechar(char *line, t_pars pars)
+char		*ft_get_r(char *line, t_pars pars)
 {
 	char	number[56];
 	int		count;
 
 	count = 0;
-	printf("One char line = %s\n", line);
-	printf("line = %s et la lettre = %c\n", line, *line);
-	/*if (*line == 'R')
+	while (ft_isdigit((int)*line) == 1)
 	{
+		number[count] = *line;
+		count++;
 		line++;
-		while (ft_isspace((int)*line) == 1)
-			line++;
-		printf("ICI Line = %c\n", *line);
-		if (ft_isdigit((int)*line) == 1)
-		{
-			printf("OK\n");
-			number[count] = *line;
-			printf("NUMBER = %s\n", number);
-		}
-		else if (ft_isalpha((int)*line) == 1)
-		{
-			printf("ERREUR Dans le fichier cub\n");
-			exit(0);
-		}
-		// printf("Line = %c\n", *line);
-	}*/
-	int a;
-	int b;
-	a = 0;
-	b = 0;
+	}
+	number[count] = '\0';
+	if (*pars.pt_rx == 0)
+		*pars.pt_rx = ft_atoi((const char *)number);
+	else
+		*pars.pt_ry = ft_atoi((const char *)number);
+	count = 0;
+	line++;
+	return (line);
+}
+
+int			ft_onechar(char *line, t_pars pars)
+{
+	*pars.pt_rx = 0;
+	*pars.pt_ry = 0;
 	if (*line == 'R')
 	{
 		line++;
-		*pars.pt_rx = 0;
-		*pars.pt_ry = 0;
 		while (*line)
 		{
 			while (ft_isspace((int)*line) == 1)
-			{
-				printf("lA\n");
 				line++;
-			}
 			if (ft_isalpha((int)*line) == 1)
 			{
 				printf("ERREUR Dans le fichier cub\n");
 				exit(0);
 			}
-			else if (ft_isdigit((int)*line) == 1)
-			{
-				printf("OK et *line = -%c-\n", *line);
-				while (ft_isdigit((int)*line) == 1)
-				{
-					number[count] = *line;
-					count++;
-					line++;
-				}
-				if (a == 0)
-				{
-					number[count] = '\0';
-					printf("RX NUMBER = %s\n", number);
-					a = ft_atoi((const char *)number);
-					printf("a = %d\n", a);
-					*pars.pt_rx = ft_atoi((const char *)number);
-					printf("pt_rx = %d\n", *pars.pt_rx);
-				}
-				else
-				{
-					number[count] = '\0';
-					printf("RY NUMBER = %s, pt_rx=%d\n", number, *pars.pt_rx);
-					b = ft_atoi((const char *)number);
-					printf("b = %d\n", b);
-					*pars.pt_ry = b;
-					printf("pt_ry = %d rx=%d\n", *pars.pt_ry, *pars.pt_rx);
-				}
-				printf("a %d et b %d\n", a, b);
-				count = 0;
-				number[count] = '\0';
-				line++;
-			}
-			if (a != 0 && b != 0)
-			{
-
-				printf("rx = %d et a = %d\n ry = %d et b = %d\n", *pars.pt_rx, a, *pars.pt_ry, b);
-				return (1);
-			}
-				
+			else if (ft_isdigit((int)*line) == 1 && (*pars.pt_rx == 0
+					|| *pars.pt_ry == 0))
+				line = ft_get_r(line, pars);
 		}
+		return (1);
 	}
-	printf("a %d et b %d\n", a, b);
-	//pars.pt_rx = &a;
-	//pars.pt_ry = &b;
-	printf("RESULTAT: pt_rx = %d et pt_ry= %d\n", *pars.pt_rx, *pars.pt_ry);
-
 }
 
 void		ft_twochar(char *line)

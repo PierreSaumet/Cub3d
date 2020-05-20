@@ -23,18 +23,31 @@
 
 typedef struct      s_pars
 {
+    int             rx;
     int             *pt_rx;
+    int             ry;
     int             *pt_ry;
+    char            no;
     char            *pt_no;
+    char            so;
     char            *pt_so;
+    char            we;
     char            *pt_we;
+    char            ea;
     char            *pt_ea;
+    char            sprite;
     char            *pt_sprite;
+    int             fr;
     int             *pt_fr;
+    int             fg;
     int             *pt_fg;
+    int             fb;
     int             *pt_fb;
+    int             cr;
     int             *pt_cr;
+    int             cg;
     int             *pt_cg;
+    int             cb;
     int             *pt_cb;
 }                   t_pars;
 

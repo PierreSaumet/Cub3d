@@ -17,18 +17,17 @@
 
 void        ft_init_t_pars(t_pars *val)
 {
-    int     i;
-    int     d;
-    char    c;
-
-    i = 0;
-    d = 0;
-    c = 'Q';
-    val->pt_rx = &i;
-    val->pt_ry = &d;
-    val->pt_fr = &i;
-    val->pt_fg = &i;
-    val->pt_fb = &i;
+    val->rx = 0;
+    val->pt_rx = &val->rx;
+    val->ry = 0;
+    val->pt_ry = &val->ry;
+    val->fr = 0;
+    val->pt_fr = &val->fr;
+    val->fg = 0;
+    val->pt_fg = &val->fg;
+    val->fb = 0;
+    val->pt_fb = &val->fb;
+    /*
     val->pt_cr = &i;
     val->pt_cg = &i;
     val->pt_cb = &i;
@@ -36,5 +35,5 @@ void        ft_init_t_pars(t_pars *val)
     val->pt_so = &c;
     val->pt_we = &c;
     val->pt_ea = &c;
-    val->pt_sprite = &c;
+    val->pt_sprite = &c;*/
 }

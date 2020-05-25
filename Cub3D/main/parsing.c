@@ -13,7 +13,7 @@
 #include "../headers/cub3D.h"
 #include "../headers/get_next_line.h"
 #include "../headers/libft.h"
-
+/*
 char		*ft_get_r(char *line, t_pars pars)
 {
 	char	number[56];
@@ -147,3 +147,4 @@ void		ft_parsing(char *argv)
 //	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
 }
 
+*/

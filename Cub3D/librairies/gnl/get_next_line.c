@@ -83,7 +83,7 @@ int		get_next_line(int fd, char **line)
 	char		buffer[BUFFER_SIZE + 1];
 	char		*tmp;
 
-	printf("BUFFER_SIZE=%d\n", BUFFER_SIZE);
+	//printf("BUFFER_SIZE=%d\n", BUFFER_SIZE);
 	if (fd < 0 || line == NULL)
 		return (-1);
 	while ((ret = read(fd, buffer, BUFFER_SIZE)) > 0)

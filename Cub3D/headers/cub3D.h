@@ -52,6 +52,14 @@ typedef struct      s_pars
 }                   t_pars;
 
 void		ft_parsing(char *argv);
+int         ft_get_data(char *line, t_pars pars);
+
 int			ft_check_arg(char *argv);
+
 void        ft_init_t_pars(t_pars *val);
+
+char	    *ft_get_r(char *line, t_pars pars);
+char	    *ft_get_rdata(char *line, t_pars pars);
+char	    *ft_get_f(char *line, t_pars pars);
+char	    *ft_get_fdata(char *line, t_pars pars);
 #endif

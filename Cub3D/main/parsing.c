@@ -147,21 +147,3 @@ void		ft_parsing(char *argv)
 //	printf("FD = %d, GNL = %d - %s\n", fd, get_next_line(fd, &line), line);
 }
 
-int			ft_check(char *argv)
-{
-	int		i;
-
-	i = 0;
-	while(argv[i])
-	{
-		if (argv[i] == '.')
-		{
-			if (argv[i + 1] == 'c' && argv[i + 2] == 'u'
-					&& argv[i + 3] == 'b' && argv[i + 4] == '\0')
-				return (0);
-		}
-		i++;
-	}
-	ft_putstr("ERROR, only one argument with the extension '.cub'\n");
-	return (1);
-}

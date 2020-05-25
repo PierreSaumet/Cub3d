@@ -24,7 +24,7 @@ int		main(int argc, char **argv)
 	}
 	else
 	{
-		if (ft_check(argv[1]) == 0)
+		if (ft_check_arg(argv[1]) == 0)
 			ft_parsing(argv[1]);
 		else
 			return (-1);

@@ -14,6 +14,11 @@
 #include "../../headers/get_next_line.h"
 #include "../../headers/libft.h"
 
+/*
+**  ft_get_r checks if the line have no error:
+**  if not, use ft_get_rdata to convert strings into int and get the datas.
+*/
+
 char	*ft_get_rdata(char *line, t_pars pars)
 {
 	printf("la\n");

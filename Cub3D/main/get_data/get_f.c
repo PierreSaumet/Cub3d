@@ -14,6 +14,11 @@
 #include "../../headers/get_next_line.h"
 #include "../../headers/libft.h"
 
+/*
+**  ft_get_f checks if the line have no error:
+**  if not, use ft_get_fdata to convert strings into int and get the datas.
+*/
+
 char	*ft_get_fdata(char *line, t_pars pars)
 {
 	char	number[56];

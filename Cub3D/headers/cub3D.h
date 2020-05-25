@@ -52,6 +52,6 @@ typedef struct      s_pars
 }                   t_pars;
 
 void		ft_parsing(char *argv);
-int			ft_check(char *argv);
+int			ft_check_arg(char *argv);
 void        ft_init_t_pars(t_pars *val);
 #endif

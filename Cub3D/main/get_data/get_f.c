@@ -35,9 +35,13 @@ char	*ft_get_fdata(char *line, t_pars pars)
 	if (*pars.pt_fr == 0)
 	{
 		*pars.pt_fr = ft_atoi((const char *)number);
-		line++;
+		//line++;
 		if (*line != ',')
-			exit(0);
+        {
+            ft_putstr("ERREUR 2 dans le fichier cub. \t Donnees non conformes dans F\n");
+            printf("line = %s et *line = %c\n", line, *line);
+            exit(0);
+        }	
 	}
 	else if (*pars.pt_fg == 0)
 		*pars.pt_fg = ft_atoi((const char *)number);
@@ -69,7 +73,7 @@ char	*ft_get_f(char *line, t_pars pars)
 			line = ft_get_fdata(line, pars);
 		else
 		{
-            ft_putstr("ERREUR dans le fichier cub. \t Donnees non conformes dans F\n");
+            ft_putstr("ERREUR 1 dans le fichier cub. \t Donnees non conformes dans F\n");
 			exit(0);
 		}
 	}

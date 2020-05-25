@@ -39,6 +39,7 @@ char	*ft_get_rdata(char *line, t_pars pars)
 		*pars.pt_ry = ft_atoi((const char *)number);
 	count = 0;
 	line++;
+	printf("rx = %d, ry = %d\n", *pars.pt_rx, *pars.pt_ry);
 	return (line);
 }
 

@@ -72,7 +72,5 @@ void		ft_parsing(char *argv)
 			free(line);
 		}
 		printf("\n\n\nRESULTAT final : \n\npt_rx = %d et pt_ry = %d\npt_fr = %d et pt_fg= %d et pt_fb= %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb);
-
 	}
-
 }

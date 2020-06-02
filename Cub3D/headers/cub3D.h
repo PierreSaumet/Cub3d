@@ -62,4 +62,6 @@ char	    *ft_get_r(char *line, t_pars pars);
 char	    *ft_get_rdata(char *line, t_pars pars);
 char	    *ft_get_f(char *line, t_pars pars);
 char	    *ft_get_fdata(char *line, t_pars pars);
+char	    *ft_get_c(char *line, t_pars pars);
+char	    *ft_get_cdata(char *line, t_pars pars);
 #endif

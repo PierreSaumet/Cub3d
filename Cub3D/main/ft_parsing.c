@@ -31,8 +31,7 @@ int		ft_get_data(char *line, t_pars pars)
 			line = ft_get_f(line, pars);
 		else if (*line == 'C')
 		{
-			printf("C\n");
-			line++;
+			line = ft_get_c(line, pars);
 		}
 		else
 		{
@@ -71,6 +70,6 @@ void		ft_parsing(char *argv)
 			ft_get_data(line, pars);
 			free(line);
 		}
-		printf("\n\n\nRESULTAT final : \n\npt_rx = %d et pt_ry = %d\npt_fr = %d et pt_fg= %d et pt_fb= %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb);
+		printf("\n\n\nRESULTAT final : \n\n	pt_rx = %d et pt_ry = %d\n pt_fr = %d et pt_fg = %d et pt_fb= %d\n pt_cr = %d et pt_cg = %d et pt_cb = %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb, *pars.pt_cr, *pars.pt_cg, *pars.pt_cb);
 	}
 }

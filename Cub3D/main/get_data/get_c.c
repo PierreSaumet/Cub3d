@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_f.c                                            :+:      :+:    :+:   */
+/*   get_c.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psaumet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,12 +14,7 @@
 #include "../../headers/get_next_line.h"
 #include "../../headers/libft.h"
 
-/*
-**  ft_get_f checks if the line have no error:
-**  if not, use ft_get_fdata to convert strings into int and get the datas.
-*/
-
-char	*ft_get_fdata(char *line, t_pars pars)
+char	*ft_get_cdata(char *line, t_pars pars)
 {
 	char	number[56];
 	int		count;
@@ -32,12 +27,10 @@ char	*ft_get_fdata(char *line, t_pars pars)
 		line++;
 	}
 	number[count] = '\0';
-	if (*pars.pt_fr == 0)
+	if (*pars.pt_cr == 0)
 	{
-		*pars.pt_fr = ft_atoi((const char *)number);
+		*pars.pt_cr = ft_atoi((const char *)number);
 		//line++;
-		printf("line = %s et *line = %c\n", line, *line);
-		printf("pt_fr = %d\n\n", *pars.pt_fr);
 		if (*line != ',')
         {
             ft_putstr("ERREUR 2 dans le fichier cub. \t Donnees non conformes dans F\n");
@@ -45,12 +38,9 @@ char	*ft_get_fdata(char *line, t_pars pars)
             exit(0);
         }	
 	}
-	else if (*pars.pt_fg == 0)
+	else if (*pars.pt_cg == 0)
 	{
-		*pars.pt_fg = ft_atoi((const char *)number);
-		//line++;
-		printf("line = %s et *line = %c\n", line, *line);
-		printf("pt_fg = %d\n\n", *pars.pt_fg);
+		*pars.pt_cg = ft_atoi((const char *)number);
 		if (*line != ',')
         {
             ft_putstr("ERREUR 2 dans le fichier cub. \t Donnees non conformes dans F\n");
@@ -58,38 +48,33 @@ char	*ft_get_fdata(char *line, t_pars pars)
             exit(0);
         }
 	}
-	else if (*pars.pt_fb == 0)
-	{
-		*pars.pt_fb = ft_atoi((const char *)number);
-		printf("line = %s et *line = %c\n", line, *line);
-		printf("pt_fb = %d\n\n", *pars.pt_fb);
-	}
+	else if (*pars.pt_cb == 0)
+		*pars.pt_cb = ft_atoi((const char *)number);
 	count = 0;
 	//line++;
 	return (line);
 }
 
-char	*ft_get_f(char *line, t_pars pars)
+char	*ft_get_c(char *line, t_pars pars)
 {
+    printf("dans C\n");
 	line++;
-	printf("dans F\n");
 	while (*line)
 	{
-		printf("DEBUT DE BOUCLE line = %s et *line = %c\n\n", line, *line);
 		if (ft_isspace((int)*line) == 1)
 			line++;
 		else if (ft_isalpha((int)*line) == 1 || *line == '.')
 		{
-			ft_putstr("ERREUR F dans le fichier cub alpha ou .\n");
+			ft_putstr("ERREUR dans le fichier cub\n");
 			exit(0);
 		}
 		else if (*line == ',')
 		{
-			printf("il y a une virgule *line = %c\n", *line);
+			printf("il y a une virgule\n");
 			line++;
 		}
 		else if (ft_isdigit((int)*line) == 1)
-			line = ft_get_fdata(line, pars);
+			line = ft_get_cdata(line, pars);
 		else
 		{
             ft_putstr("ERREUR 1 dans le fichier cub. \t Donnees non conformes dans F\n");
@@ -98,4 +83,3 @@ char	*ft_get_f(char *line, t_pars pars)
 	}
 	return (line);
 }
-

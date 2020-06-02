@@ -21,12 +21,20 @@ void        ft_init_t_pars(t_pars *val)
     val->pt_rx = &val->rx;
     val->ry = 0;
     val->pt_ry = &val->ry;
+
     val->fr = 0;
     val->pt_fr = &val->fr;
     val->fg = 0;
     val->pt_fg = &val->fg;
     val->fb = 0;
     val->pt_fb = &val->fb;
+
+    val->cr = 0;
+    val->pt_cr = &val->cr;
+    val->cg = 0;
+    val->pt_cg = &val->cg;
+    val->cb = 0;
+    val->pt_cb = &val->cb;
     /*
     val->pt_cr = &i;
     val->pt_cg = &i;

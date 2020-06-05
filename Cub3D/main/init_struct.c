@@ -35,6 +35,21 @@ void        ft_init_t_pars(t_pars *val)
     val->pt_cg = &val->cg;
     val->cb = 0;
     val->pt_cb = &val->cb;
+
+    val->no[0] = '\0';
+    val->pt_no = malloc(128 + 1);
+
+    val->so = '0';
+    val->pt_so = &val->so;
+
+    val->we = '0';
+    val->pt_we = &val->we;
+
+    val->ea = '0';
+    val->pt_ea = &val->ea;
+
+    val->sprite = '0';
+    val->pt_sprite = &val->sprite;
     /*
     val->pt_cr = &i;
     val->pt_cg = &i;

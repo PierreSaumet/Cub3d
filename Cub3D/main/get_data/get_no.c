@@ -36,7 +36,7 @@ char    *ft_get_no_data(char *line, t_pars pars)
         
         // OK
         
-        while (ft_isalnum((int)*line) == 1)
+        while (ft_isalnum((int)*line) == 1 || *line == '/' || *line == '-' || *line == '_')
         {
             test2[count] = *line;
             count++;
@@ -59,14 +59,13 @@ char    *ft_get_no_data(char *line, t_pars pars)
 
 char    *ft_get_no(char *line, t_pars pars)
 {
-    printf("Dans NO\n");
+    printf("Dans NO *pars.pt_no = %s\n", pars.pt_no);
     line++;
     if (*line == 'O')
     {
         line++;
         while (*line)
         {
-            printf("lecture ... *line = %c\n", *line);
             if (ft_isspace((int)*line) == 1)
                 line++;
             else if (ft_isdigit((int)*line) == 1 || ft_isalpha((int)*line) == 1)
@@ -74,10 +73,12 @@ char    *ft_get_no(char *line, t_pars pars)
                 ft_putstr("ERREUR NO dans le fichier cub alpha ou .\n");
 			    exit(0);
             }
-            else if (*line == '.')
-            {
+            else if (*line == '.' && *pars.pt_no == '\0')
                 line = ft_get_no_data(line, pars);
-                printf("dedans ...\n");
+            else
+            {
+                printf("ERROR dans NO\n");
+                exit(0);
             }
         }
     }
@@ -86,6 +87,5 @@ char    *ft_get_no(char *line, t_pars pars)
         printf("ERROR dans NO pas de O\n");
         exit(0);
     }
-    printf("fin de no, pt_no = %s\n", pars.pt_no);
     return (line);
 }

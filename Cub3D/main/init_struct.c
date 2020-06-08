@@ -39,19 +39,17 @@ void        ft_init_t_pars(t_pars *val)
     val->no[0] = '\0';
     val->pt_no = val->no;
 
-    val->testlol = NULL;
+    val->so[0] = '\0';
+    val->pt_so = val->so;
 
-    val->so = '0';
-    val->pt_so = &val->so;
+    val->we[0] = '\0';
+    val->pt_we = val->we;
 
-    val->we = '0';
-    val->pt_we = &val->we;
+    val->ea[0] = '\0';
+    val->pt_ea = val->ea;
 
-    val->ea = '0';
-    val->pt_ea = &val->ea;
-
-    val->sprite = '0';
-    val->pt_sprite = &val->sprite;
+    val->s[0] = '\0';
+    val->pt_s = val->s;
     /*
     val->pt_cr = &i;
     val->pt_cg = &i;

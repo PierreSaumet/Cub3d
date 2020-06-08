@@ -18,6 +18,7 @@ int		ft_get_data(char *line, t_pars pars)
 {
 	while (*line)
 	{
+		printf("line = %c et *line = %s dans get data\n", *line, line);
 		if (ft_isspace((int)*line) == 1)
 			line++;
 		else if (*line == 'N')
@@ -27,6 +28,10 @@ int		ft_get_data(char *line, t_pars pars)
 		}
 		else if (*line == 'R')
 			line = ft_get_r(line, pars);
+		else if (*line == 'F')
+			line = ft_get_f(line, pars);
+		else if (*line == 'C')
+			line = ft_get_c(line, pars);
 		else
 		{
 			printf("\n1) ERREUR dans le fichier cub  car *line = -%c-\n", *line);
@@ -58,7 +63,7 @@ void		ft_parsing(char *argv)
 	char	*line;
 
 	fd = open(argv, O_RDONLY);
-	ret = 0;
+	ret = 1;
 	line = NULL;
 
 
@@ -74,15 +79,21 @@ void		ft_parsing(char *argv)
 	{
 		//printf("\nDEBUT : \n\npt_rx = %d et pt_ry = %d\npt_fr = %d et pt_fg= %d et pt_fb= %d\n\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb);
 		printf("no =-%s- et pt_no = -%s-\n", pars.no, pars.pt_no);
-		while ((ret = get_next_line(fd, &line) > 0))
+		while (ret > 0)
 		{
+			//(ret = get_next_line(fd, &line) > 0)
+			ret = get_next_line(fd, &line);
+			printf("rest = %d\n", ret);
 			ft_get_data(line, pars);
 			free(line);
 		}
-		//printf("ret = %d\n", ret);
+		printf("ret = %d line = %s\n", ret, line);
 		printf("\n\n\nRESULTAT final : \n\n	pt_rx = %d et pt_ry = %d\n pt_fr = %d et pt_fg = %d et pt_fb= %d\n pt_cr = %d et pt_cg = %d et pt_cb = %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb, *pars.pt_cr, *pars.pt_cg, *pars.pt_cb);
 		printf("rx = %d\n", pars.rx);
-		printf("FINAL pars.pt_no = %s\n testlol = %s\n\n", pars.pt_no, pars.testlol);
+		printf("FINAL pars.pt_no = %s\n", pars.pt_no);
 		printf("pars.no = %s\n", pars.no);
+		free(line);
+		line = NULL;
+		close(fd);
 	}
 }

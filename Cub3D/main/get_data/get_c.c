@@ -77,7 +77,7 @@ char	*ft_get_c(char *line, t_pars pars)
 			line = ft_get_cdata(line, pars);
 		else
 		{
-            ft_putstr("ERREUR 1 dans le fichier cub. \t Donnees non conformes dans F\n");
+            ft_putstr("ERREUR 1 dans le fichier cub. \t Donnees non conformes dans C\n");
 			exit(0);
 		}
 	}

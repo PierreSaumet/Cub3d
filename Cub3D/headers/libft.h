@@ -31,6 +31,7 @@ void				ft_bzero(void *s, size_t n);
 void				ft_putchar(char c);
 
 char				*ft_strdup(char *s1);
+char        		*ft_strcpy(char *dst, char *src);
 char				*ft_strchr(char *s);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *haystack, const char *needle,

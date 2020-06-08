@@ -25,6 +25,8 @@ int		ft_get_data(char *line, t_pars pars)
 			line = ft_get_no(line, pars);
 			
 		}
+		else if (*line == 'R')
+			line = ft_get_r(line, pars);
 		else
 		{
 			printf("\n1) ERREUR dans le fichier cub  car *line = -%c-\n", *line);
@@ -71,14 +73,16 @@ void		ft_parsing(char *argv)
 	else
 	{
 		//printf("\nDEBUT : \n\npt_rx = %d et pt_ry = %d\npt_fr = %d et pt_fg= %d et pt_fb= %d\n\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb);
-		printf("no =%s et pt_no = %s\n", pars.no, pars.pt_no);
+		printf("no =-%s- et pt_no = -%s-\n", pars.no, pars.pt_no);
 		while ((ret = get_next_line(fd, &line) > 0))
 		{
 			ft_get_data(line, pars);
 			free(line);
 		}
 		//printf("ret = %d\n", ret);
-		//printf("\n\n\nRESULTAT final : \n\n	pt_rx = %d et pt_ry = %d\n pt_fr = %d et pt_fg = %d et pt_fb= %d\n pt_cr = %d et pt_cg = %d et pt_cb = %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb, *pars.pt_cr, *pars.pt_cg, *pars.pt_cb);
-		printf("FINAL pars.no = %s\n", pars.no);
+		printf("\n\n\nRESULTAT final : \n\n	pt_rx = %d et pt_ry = %d\n pt_fr = %d et pt_fg = %d et pt_fb= %d\n pt_cr = %d et pt_cg = %d et pt_cb = %d\n", *pars.pt_rx, *pars.pt_ry, *pars.pt_fr, *pars.pt_fg, *pars.pt_fb, *pars.pt_cr, *pars.pt_cg, *pars.pt_cb);
+		printf("rx = %d\n", pars.rx);
+		printf("FINAL pars.pt_no = %s\n testlol = %s\n\n", pars.pt_no, pars.testlol);
+		printf("pars.no = %s\n", pars.no);
 	}
 }

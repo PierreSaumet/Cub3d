@@ -37,7 +37,9 @@ void        ft_init_t_pars(t_pars *val)
     val->pt_cb = &val->cb;
 
     val->no[0] = '\0';
-    val->pt_no = malloc(128 + 1);
+    val->pt_no = val->no;
+
+    val->testlol = NULL;
 
     val->so = '0';
     val->pt_so = &val->so;

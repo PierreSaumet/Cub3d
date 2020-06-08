@@ -27,8 +27,9 @@ typedef struct      s_pars
     int             *pt_rx;
     int             ry;
     int             *pt_ry;
-    char            no[128];
+    char            no[124];
     char            *pt_no;
+    char            *testlol;
     char            so;
     char            *pt_so;
     char            we;
@@ -66,4 +67,5 @@ char	    *ft_get_c(char *line, t_pars pars);
 char	    *ft_get_cdata(char *line, t_pars pars);
 
 char        *ft_get_no(char *line, t_pars pars);
+char        *ft_get_no_data(char *line, t_pars pars);
 #endif

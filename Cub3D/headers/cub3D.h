@@ -67,4 +67,13 @@ char	    *ft_get_cdata(char *line, t_pars pars);
 
 char        *ft_get_no(char *line, t_pars pars);
 char        *ft_get_no_data(char *line, t_pars pars);
+
+char        *ft_get_we(char *line, t_pars pars);
+char        *ft_get_we_data(char *line, t_pars pars);
+
+char    *ft_get_ea(char *line, t_pars pars);
+char    *ft_get_ea_data(char *line, t_pars pars);
+
+char    *ft_get_sso(char *line, t_pars pars);
+char    *ft_get_so_data(char *line, t_pars pars, int a);
 #endif

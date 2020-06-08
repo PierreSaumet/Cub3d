@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_no.c                                           :+:      :+:    :+:   */
+/*   get_we.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psaumet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../headers/cub3D.h"
 #include "../../headers/get_next_line.h"
 #include "../../headers/libft.h"
 
-char    *ft_get_no_data(char *line, t_pars pars)
+char    *ft_get_we_data(char *line, t_pars pars)
 {
-    printf("dans no data\n");
+    printf("dans we data\n");
     line++;
     char test[128];
     char *test2;
     int count;
     count = 0;
-    printf("pars.pt no = %s\n", pars.pt_no);
-    printf("*pars.pt_no = %c\n", *pars.pt_no);
-    //printf("&pars,pt_no = %s\n", &pars.pt_no);
+    test[0] = '\0';
     if (*line == '/')
     {
         printf("line = %c et line = -%s- et strlen = -%d-\n", *line, line, ft_strlen(line));
@@ -37,15 +36,15 @@ char    *ft_get_no_data(char *line, t_pars pars)
         
         while (ft_isalnum((int)*line) == 1 || *line == '/' || *line == '-' || *line == '_')
         {
-            test2[count] = *line;
+            test[count] = *line;
             count++;
             line++;
         }
-        test2[count] = '\0';
-        printf("ok test2 = -%s- et count = -%d-\n", test2, count);
-        ft_strcpy(pars.pt_no, test2);
-        printf("test = %s\n", test2);
-        printf("pars.no = %s \n", pars.pt_no);
+        test[count] = '\0';
+        printf("ok test = -%s- et count = -%d-\n", test, count);
+        ft_strcpy(pars.pt_we, test);
+        printf("test = %s\n", test);
+        printf("pars.we = %s \n", pars.pt_we);
     }
     else
     {
@@ -56,11 +55,11 @@ char    *ft_get_no_data(char *line, t_pars pars)
     return (line);
 }
 
-char    *ft_get_no(char *line, t_pars pars)
+char    *ft_get_we(char *line, t_pars pars)
 {
-    printf("Dans NO *pars.pt_no = %s\n", pars.pt_no);
+    printf("Dans we *pars.pt_we = %s\n", pars.pt_we);
     line++;
-    if (*line == 'O')
+    if (*line == 'E')
     {
         line++;
         while (*line)
@@ -69,21 +68,21 @@ char    *ft_get_no(char *line, t_pars pars)
                 line++;
             else if (ft_isdigit((int)*line) == 1 || ft_isalpha((int)*line) == 1)
             {
-                ft_putstr("ERREUR NO dans le fichier cub alpha ou .\n");
+                ft_putstr("ERREUR WE dans le fichier cub alpha ou .\n");
 			    exit(0);
             }
-            else if (*line == '.' && *pars.pt_no == '\0')
-                line = ft_get_no_data(line, pars);
+            else if (*line == '.' && *pars.pt_we == '\0')
+                line = ft_get_we_data(line, pars);
             else
             {
-                printf("ERROR dans NO\n");
+                printf("ERROR dans WE\n");
                 exit(0);
             }
         }
     }
     else
     {
-        printf("ERROR dans NO pas de O\n");
+        printf("ERROR dans We pas de E\n");
         exit(0);
     }
     return (line);

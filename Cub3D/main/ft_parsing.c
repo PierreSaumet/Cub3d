@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Ft_parsing; open a file descriptor and put the buffer into ft_get_data.
+** Ft_get_data; it is the first step for the parsing... 
+** browse the buffer and check the letter (R, NO, SO...) and call the right
+** function.
+*/
 #include "../headers/cub3D.h"
 #include "../headers/get_next_line.h"
 #include "../headers/libft.h"

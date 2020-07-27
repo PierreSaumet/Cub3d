@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Main: checks args, if == 2 checks the first args
+** then start the parsing.
+*/
+
 #include "../headers/get_next_line.h"
 #include "../headers/cub3D.h"
 #include "../headers/libft.h"

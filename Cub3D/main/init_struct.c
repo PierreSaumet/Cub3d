@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Ft_init_t_pars, initialize all the data needed it
+** for the parsing.
+*/
+
 #include "../headers/cub3D.h"
 #include "../headers/get_next_line.h"
 #include "../headers/libft.h"

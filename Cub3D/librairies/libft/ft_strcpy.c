@@ -14,10 +14,10 @@
 
 char        *ft_strcpy(char *dst, char *src)
 {
-    char    *rtnval;
+    char    *str;
     int     i;
 
-    rtnval = dst;
+    str = dst;
     i = 0;
     while(src[i])
     {
@@ -25,5 +25,5 @@ char        *ft_strcpy(char *dst, char *src)
         i++;
     }
     dst[i] = '\0';
-    return (rtnval);
+    return (str);
 }

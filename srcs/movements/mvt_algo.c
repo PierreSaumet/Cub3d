@@ -24,90 +24,81 @@
 **  program and use a function to save the player's action.
 */
 
-
-static int              ft_key_press(int keycode, parsing_t *p_val)
+static int			ft_key_press(int keycode, parsing_t *p_val)
 {
-    if (keycode == K_ESC)
-    {
-        ft_destroy_texture(p_val);
-        if (p_val->mlx_val.img_ptr != NULL)
-            mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
-        if (p_val->mlx_val.img_ptr2 != NULL)
-            mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
-        mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-        mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-        ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
-        ft_free_sprite(p_val);
-        ft_free_map_raycasting(p_val);
-        exit(EXIT_SUCCESS);
-    }
-    ft_key_push(keycode, p_val);
-    return 0;
+	if (keycode == K_ESC)
+	{
+		ft_destroy_texture(p_val);
+		if (p_val->mlx_val.img_ptr != NULL)
+			mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
+		if (p_val->mlx_val.img_ptr2 != NULL)
+			mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
+		mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+		mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+		ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
+		ft_free_sprite(p_val);
+		ft_free_map_raycasting(p_val);
+		exit(EXIT_SUCCESS);
+	}
+	ft_key_push(keycode, p_val);
+	return (0);
 }
 
-static void             ft_check_key(parsing_t *p_val)
+static void			ft_check_key(parsing_t *p_val)
 {
-    if (p_val->mvt.forward == 1)
-        ft_forward(p_val);
-    if (p_val->mvt.backward == 1)
-        ft_backward(p_val);
-    if (p_val->mvt.right == 1)
-        ft_right(p_val);
-    if (p_val->mvt.left == 1)
-        ft_left(p_val);
-    if (p_val->mvt.cam_r == 1)
-        ft_cam_r(p_val);
-    if (p_val->mvt.cam_l == 1)
-        ft_cam_l(p_val); 
+	if (p_val->mvt.forward == 1)
+		ft_forward(p_val);
+	if (p_val->mvt.backward == 1)
+		ft_backward(p_val);
+	if (p_val->mvt.right == 1)
+		ft_right(p_val);
+	if (p_val->mvt.left == 1)
+		ft_left(p_val);
+	if (p_val->mvt.cam_r == 1)
+		ft_cam_r(p_val);
+	if (p_val->mvt.cam_l == 1)
+		ft_cam_l(p_val);
 }
 
-static int              ft_refresh(parsing_t *p_val)
+static int			ft_refresh(parsing_t *p_val)
 {
-    ft_check_key(p_val);
-    ft_raycasting(*p_val);
-    if (p_val->refresh == 0)
-    {
-        mlx_put_image_to_window(p_val->mlx_val.mlx_ptr,
-            p_val->mlx_val.win_ptr, p_val->mlx_val.img_ptr, 0, 0);
-        p_val->refresh = 1;
-    }
-    else if (p_val->refresh == 1)
-    {
-        mlx_put_image_to_window(p_val->mlx_val.mlx_ptr,
-            p_val->mlx_val.win_ptr, p_val->mlx_val.img_ptr2, 0, 0);
-        p_val->refresh = 0;
-    }
-    return (0);
+	ft_check_key(p_val);
+	ft_raycasting(*p_val);
+	if (p_val->refresh == 0)
+	{
+		mlx_put_image_to_window(p_val->mlx_val.mlx_ptr,
+			p_val->mlx_val.win_ptr, p_val->mlx_val.img_ptr, 0, 0);
+		p_val->refresh = 1;
+	}
+	else if (p_val->refresh == 1)
+	{
+		mlx_put_image_to_window(p_val->mlx_val.mlx_ptr,
+			p_val->mlx_val.win_ptr, p_val->mlx_val.img_ptr2, 0, 0);
+		p_val->refresh = 0;
+	}
+	return (0);
 }
 
-static int                    ft_close_window(parsing_t *p_val)
+static int			ft_close_window(parsing_t *p_val)
 {
-    printf("Bye\n");
-    
-    ft_destroy_texture(p_val);
-    if (p_val->mlx_val.img_ptr != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
-    if (p_val->mlx_val.img_ptr2 != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
-    mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-    //free(p_val->mlx_val.win_ptr);
-    //p_val->mlx_val.win_ptr = NULL;
-    
-    mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-    mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-    
-    //ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
-    ft_free_sprite(p_val);
-    ft_free_map_raycasting(p_val);
-    exit(EXIT_SUCCESS);
-    return 0;
+	ft_destroy_texture(p_val);
+	if (p_val->mlx_val.img_ptr != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
+	if (p_val->mlx_val.img_ptr2 != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
+	mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+	mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+	mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+	ft_free_sprite(p_val);
+	ft_free_map_raycasting(p_val);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
 
-void                    ft_event(parsing_t *p_val)
+void				ft_event(parsing_t *p_val)
 {
-    mlx_hook(p_val->mlx_val.win_ptr, 3, 1L << 1, ft_key_release, p_val);
+	mlx_hook(p_val->mlx_val.win_ptr, 3, 1L << 1, ft_key_release, p_val);
 	mlx_hook(p_val->mlx_val.win_ptr, 2, 1L << 0, ft_key_press, p_val);
-    mlx_hook(p_val->mlx_val.win_ptr, 17, 1L << 17, ft_close_window, p_val);
-    //mlx_hook(p_val->mlx_val.win_ptr, 17, 0, ft_close_window, p_val);
-    mlx_loop_hook(p_val->mlx_val.mlx_ptr, ft_refresh, p_val);
+	mlx_hook(p_val->mlx_val.win_ptr, 17, 1L << 17, ft_close_window, p_val);
+	mlx_loop_hook(p_val->mlx_val.mlx_ptr, ft_refresh, p_val);
 }

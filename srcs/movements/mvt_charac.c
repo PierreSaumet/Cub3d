@@ -16,49 +16,58 @@
 **  This file contains 4 functions:
 **  - 'ft_forward(parsing_t *p_val)':   Checks if the player can go forward.
 **  - 'ft_backward(parsing_t *p_val)':  Checks if the player can go backward.
-**  - 'ft_right(parsing_t *p_val)':     Checks if the player can go at his right.
-**  - 'ft_left(parsing_t *p_val)':      Checks if the player can go at his left.
+**  - 'ft_right(parsing_t *p_val)':     Checks if the player can go at
+**	his right.
+**  - 'ft_left(parsing_t *p_val)':      Checks if the player can go at
+**	his left.
 */
 
-void            ft_forward(parsing_t *p_val)
+void					ft_forward(parsing_t *p_val)
 {
-	if (p_val->map[(int)(p_val->posX + p_val->dirX * MOVESPEED)][(int)p_val->posY] == '0')
+	if (p_val->map[(int)(p_val->posX + p_val->dirX * MOVESPEED)]
+			[(int)p_val->posY] == '0')
 		p_val->posX += p_val->dirX * MOVESPEED;
-	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + p_val->dirY * MOVESPEED)] == '0')
+	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + p_val->dirY
+			* MOVESPEED)] == '0')
 		p_val->posY += p_val->dirY * MOVESPEED;
-
 }
 
-void            ft_backward(parsing_t *p_val)
+void					ft_backward(parsing_t *p_val)
 {
-	if (p_val->map[(int)(p_val->posX - p_val->dirX * MOVESPEED)][(int)p_val->posY] == '0')
+	if (p_val->map[(int)(p_val->posX - p_val->dirX * MOVESPEED)]
+			[(int)p_val->posY] == '0')
 		p_val->posX -= p_val->dirX * MOVESPEED;
-	if (p_val->map[(int)(p_val->posX)][(int)(p_val->posY - p_val->dirY * MOVESPEED)] == '0')
+	if (p_val->map[(int)(p_val->posX)][(int)(p_val->posY - p_val->dirY
+			* MOVESPEED)] == '0')
 		p_val->posY -= p_val->dirY * MOVESPEED;
-
 }
 
-void            ft_right(parsing_t *p_val)
+void					ft_right(parsing_t *p_val)
 {
-	double      ndirx;
-	double      ndiry;
+	double				ndirx;
+	double				ndiry;
 
 	ndirx = p_val->dirY;
 	ndiry = -p_val->dirX;
-	if (p_val->map[(int)(p_val->posX + ndirx * MOVESPEED)][(int)p_val->posY] == '0')
+	if (p_val->map[(int)(p_val->posX + ndirx * MOVESPEED)][(int)p_val->posY]
+			== '0')
 		p_val->posX += ndirx * MOVESPEED;
-	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + ndiry * MOVESPEED)] == '0')
+	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + ndiry * MOVESPEED)]
+			== '0')
 		p_val->posY += ndiry * MOVESPEED;
 }
 
-void            ft_left(parsing_t *p_val)
+void					ft_left(parsing_t *p_val)
 {
-	double      ndirx;
-	double      ndiry;
+	double				ndirx;
+	double				ndiry;
+
 	ndirx = -p_val->dirY;
 	ndiry = p_val->dirX;
-	if (p_val->map[(int)(p_val->posX + ndirx * MOVESPEED)][(int)p_val->posY] == '0')
+	if (p_val->map[(int)(p_val->posX + ndirx * MOVESPEED)][(int)p_val->posY]
+			== '0')
 		p_val->posX += ndirx * MOVESPEED;
-	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + ndiry * MOVESPEED)] == '0')
+	if (p_val->map[(int)p_val->posX][(int)(p_val->posY + ndiry * MOVESPEED)]
+			== '0')
 		p_val->posY += ndiry * MOVESPEED;
 }

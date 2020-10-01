@@ -13,7 +13,8 @@
 #include "../headers/cub3d.h"
 
 /*
-** This file contains 3 functions mainly used for saving the bmp file.
+** This file contains 4 functions mainly used for saving the bmp file.
+**	- 'ft_bmp_exit(t_parsing p_val)':	allows the program to exit correctly.
 **  - ' ft_write_bmp(t_parsing *p_val, int fd)':    the main function, uses
 **  the two others and write into the file descriptor.
 **  - 'ft_bmp_header(t_parsing *p_val,
@@ -22,6 +23,17 @@
 **  - 'ft_bmp_draw(t_parsing *p_val, bmp_image_t *bih, int fd, char *img)':
 **  find the color of the pixel and write it in the file descriptor.
 */
+
+void					ft_bmp_exit(t_parsing p_val)
+{
+	if (p_val.mlx_val.img_ptr != NULL)
+		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr);
+	if (p_val.mlx_val.img_ptr2 != NULL)
+		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr2);
+	mlx_clear_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
+	mlx_destroy_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
+	ft_free_mlx_ptr(p_val.mlx_val.mlx_ptr);
+}
 
 static void				ft_bmp_header(t_parsing *p_val,
 		t_bmp_file *bfh, t_bmp_image *bih, unsigned short *bmp_type)

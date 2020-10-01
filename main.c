@@ -26,159 +26,88 @@
 **  the parsing form the .cub.
 */
 
-void            ft_start_parsing(char **argv, t_data *data, t_map *map)
+void			ft_start_parsing(char **argv, t_data *data, t_map *map)
 {
-    int         i;
+	int			i;
 
-    i = 0;
-    init_map(map);
-    init_params(data);
-    check_arg(argv[1]);
-    parsing_param(argv[1], data);
-    get_map(argv[1], data);
-    check_index_map(data);
-    change_sp_map(data);
-    ft_check_map(data);
-    ft_resolve(map, data);
-    i = 0;
-    while (i < data->map_h + 1)
-    {
-        free(map->map2[i]);
-        i++;
-    }
-    free(map->map2);
-    map->map2 = NULL;
+	i = 0;
+	init_map(map);
+	init_params(data);
+	check_arg(argv[1]);
+	parsing_param(argv[1], data);
+	get_map(argv[1], data);
+	check_index_map(data);
+	change_sp_map(data);
+	ft_check_map(data);
+	ft_resolve(map, data);
+	i = 0;
+	while (i < data->map_h + 1)
+	{
+		free(map->map2[i]);
+		i++;
+	}
+	free(map->map2);
+	map->map2 = NULL;
 }
 
-void            ft_start_game(t_parsing parsing_val)
+void			ft_start_game(t_parsing parsing_val)
 {
-    ft_raycasting(parsing_val);
-    mlx_put_image_to_window(parsing_val.mlx_val.mlx_ptr,
-        parsing_val.mlx_val.win_ptr, parsing_val.mlx_val.img_ptr, 0, 0);
-    ft_event(&parsing_val);
-    mlx_loop(parsing_val.mlx_val.mlx_ptr);
+	ft_raycasting(parsing_val);
+	mlx_put_image_to_window(parsing_val.mlx_val.mlx_ptr,
+		parsing_val.mlx_val.win_ptr, parsing_val.mlx_val.img_ptr, 0, 0);
+	ft_event(&parsing_val);
+	mlx_loop(parsing_val.mlx_val.mlx_ptr);
 }
 
-void            ft_init_game(t_data *data, t_parsing *parsing_val)
+void			ft_init_game(t_data *data, t_parsing *parsing_val)
 {
-    ft_cpy_structure(data, parsing_val);
-    ft_init_structure(parsing_val);
-    ft_init_texture(parsing_val, data);
-    ft_cpy_map(data, parsing_val);
-    ft_init_sprite(parsing_val);
+	ft_cpy_structure(data, parsing_val);
+	ft_init_structure(parsing_val);
+	ft_init_texture(parsing_val, data);
+	ft_cpy_map(data, parsing_val);
+	ft_init_sprite(parsing_val);
 }
 
-static void            ft_bmp(char **argv, t_data *data,
-        t_parsing *parsing_val, t_map *map)
+static void		ft_bmp(char **argv, t_data *data,
+		t_parsing *parsing_val, t_map *map)
 {
-    int         fd;
+	int			fd;
 
-    if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
-    {
-        printf("Cannot open the bmp file\n");
-        exit(EXIT_FAILURE);
-    }
-    ft_start_parsing(argv, data, map);
-    ft_init_game(data, parsing_val);
-    ft_raycasting(*parsing_val);
-    ft_write_bmp(parsing_val, fd);
+	if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
+	{
+		printf("Cannot open the bmp file\n");
+		exit(EXIT_FAILURE);
+	}
+	ft_start_parsing(argv, data, map);
+	ft_init_game(data, parsing_val);
+	ft_raycasting(*parsing_val);
+	ft_write_bmp(parsing_val, fd);
 }
 
-/*****************************************************
-** fonctins pour les free   **************************
-*****************************************************
-*/
-void            ft_full_free1(t_data data, t_map map)
+int				main(int argc, char **argv)
 {
-    // Libere les pointeurs pt_no et so and co
-    free(data.pt_no);
-    data.pt_no = NULL;
-    free(data.pt_so);
-    data.pt_so = NULL;
-    free(data.pt_ea);
-    data.pt_ea = NULL;
-    free(data.pt_we);
-    data.pt_we = NULL;
-    free(data.pt_sp);
-    data.pt_sp = NULL;
-    
-    // Libere data->map (premiere map pour recuperer les donnees)
-    int         i;
-    i = 0;
-    while (i < data.map_h + 1)
-    {
-        free(data.map[i]);
-        i++;
-    }
-    free(data.map);
-    data.map = NULL;
+	t_data		data;
+	t_map		map;
+	t_parsing	p_val;
+	t_dda		dda_val;
 
-    // Libere data->map2 (deuxieme map pour le  resorlve)
-    i = 0;
-    while (i < data.map_h + 1)
-    {
-        free(map.map2[i]);
-        i++;
-    }
-    free(map.map2);
-    map.map2 = NULL;
-
-}
-
-void            ft_full_free_2(t_data data, t_parsing p_val, t_map map)
-{
-    // Libere la 3eme map utilisee pour le raycasting
-    int         i;
-    i = 0;
-    //printf("p_val.maph = %d p_val.mapw =%d\n", p_val.maph, p_val.mapw);
-    while (i < data.map_h + 1)
-    {
-        free(p_val.map[i]);
-        i++;                                        // A CORRIGER
-    }
-    free(p_val.map);
-    p_val.map = NULL;
-
-    // Libere les sprites de ssp
-    free(p_val.ssp);
-    p_val.ssp = NULL;
-
-
-}
-
-
-//reste dans ce fichier
-int             main(int argc, char **argv)
-{
-    t_data      data;
-    t_map       map;
-    t_parsing   parsing_val;
-    t_dda       dda_val;
-
-    if (argc < 2 || argc > 3)
-        quit("Need one argument or two with --save!\n");
-    
-    else if (argc == 2)
-    {
-        
-        ft_start_parsing(argv, &data, &map);
-        //ft_full_free1(data, map);
-        ft_init_game(&data, &parsing_val);
-        
-        //ft_full_free1(data, map);
-        //ft_full_free_2(data, parsing_val, map);
-        //printf("p_val.maph = %d p_val.mapw =%d et data.map_h + 1 = %d\n", parsing_val.maph, parsing_val.mapw, data.map_h + 1);
-        ft_start_game(parsing_val);
-        
-        //printf("bonjour?\n");
-    }
-    /*
-    else if (argc == 3)
-    {
-        if (argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
-                && argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e')
-            ft_bmp(argv, &data, &parsing_val, &map);
-    }
-    */
-    return (0);
+	if (argc < 2 || argc > 3)
+		quit("Need one argument or two with --save!\n");
+	else if (argc == 2)
+	{
+		ft_start_parsing(argv, &data, &map);
+		ft_init_game(&data, &p_val);
+		ft_start_game(p_val);
+	}
+	else if (argc == 3)
+	{
+		if (argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
+				&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e')
+			ft_bmp(argv, &data, &p_val, &map);
+		ft_destroy_texture(&p_val);
+		ft_bmp_exit(p_val);
+		ft_free_sprite(&p_val);
+		ft_free_map_raycasting(&p_val);
+	}
+	return (0);
 }

@@ -237,6 +237,7 @@ void					ft_draw_wall(t_parsing *p_val, t_texture text,
 **  ft_bmp.c
 */
 void					ft_write_bmp(t_parsing *p_val, int fd);
+void					ft_bmp_exit(t_parsing p_val);
 
 /*
 **  ft_free_structure.c

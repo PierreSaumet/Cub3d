@@ -126,18 +126,18 @@ typedef struct			s_sp_params
 /*
 **  Global structure used for all the raycasting algorithm
 */
-typedef struct			s_parsing 
+typedef struct			s_parsing
 {
-	int					screenH;
-	int					screenW;
-	int					mapH;
-	int					mapW;
-	double				posX;
-	double				posY;
-	double				dirX;
-	double				dirY;
-	double				planeX;
-	double				planeY;
+	int					screenh;
+	int					screenw;
+	int					maph;
+	int					mapw;
+	double				posx;
+	double				posy;
+	double				dirx;
+	double				diry;
+	double				planex;
+	double				planey;
 	int					ceiling;
 	int					floor;
 	int					refresh;

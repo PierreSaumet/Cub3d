@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_LINUX_H
-# define KEY_LINUX_H
+#ifndef LINUX_KEY_H
+# define LINUX_KEY_H
 
 /*
 ** Keyboard LETTERS

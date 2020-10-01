@@ -12,7 +12,6 @@
 
 #include "../../srcs/headers/libft.h"
 
-
 char	*ft_strchrsp(const char *str)
 {
 	while (*str)

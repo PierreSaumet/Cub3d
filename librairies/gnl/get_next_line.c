@@ -57,12 +57,10 @@ int		ft_gnl(char **s, char **line)
 	len = 0;
 	while ((*s)[len] != '\n' && (*s)[len] != '\0')
 		len++;
-	
 	if ((*s)[len] == '\n')
 	{
 		if ((*s)[0] == '\0')
 			ft_free(s);
-		
 		*line = ft_substr(*s, 0, len);
 		tmp = ft_strdup(&((*s)[len + 1]));
 		free(*s);
@@ -73,7 +71,6 @@ int		ft_gnl(char **s, char **line)
 		*line = ft_strdup(*s);
 		ft_free(s);
 		s = NULL;
-		
 	}
 	return (1);
 }
@@ -84,7 +81,7 @@ int		get_next_line(int fd, char **line)
 	static char	*str[1024];
 	char		buffer[125 + 1];
 	char		*tmp;
-	
+
 	if (fd < 0 || line == NULL)
 		return (-1);
 	while ((ret = read(fd, buffer, 125)) > 0)

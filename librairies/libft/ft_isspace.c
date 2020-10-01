@@ -12,10 +12,10 @@
 
 #include "../../srcs/headers/libft.h"
 
-int     ft_isspace(int c)
+int		ft_isspace(int c)
 {
-    if (c == ' ')
-        return (1);
-    else
-        return (0);  
+	if (c == ' ')
+		return (1);
+	else
+		return (0);
 }

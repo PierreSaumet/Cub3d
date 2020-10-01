@@ -28,232 +28,227 @@
 /*
 **  Structure for the textures
 */
-typedef struct          texture_s
+typedef struct			s_texture
 {
-    void                *id;
-    void                *addr;
-    int                *img;    
-    int                 h;
-    int                 w;
-}                       texture_t;
+	void				*id;
+	void				*addr;
+	int					*img;
+	int					h;
+	int					w;
+}						t_texture;
 
 /*
 **  Structure for the mlx graphic
 */
-typedef struct          mlx_s
+typedef struct			s_mlx
 {
-    void                *mlx_ptr;
-    void                *win_ptr;
-    void                *img_ptr;
-    void                *img_data;
-    int                 *img_i_data;
-    int                 size_l;
-    int                 bpp;
-    int                 endian;
-    void                *img_ptr2;
-    void                *img_data2;
-    int                 size_l2;
-    int                 bpp2;
-    int                 endian2;
-}                       mlx_t;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	void				*img_ptr;
+	void				*img_data;
+	int					*img_i_data;
+	int					size_l;
+	int					bpp;
+	int					endian;
+	void				*img_ptr2;
+	void				*img_data2;
+	int					size_l2;
+	int					bpp2;
+	int					endian2;
+}						t_mlx;
 
 /*
 **  Structure for the movements
 */
-typedef struct          mvt_s
+typedef struct			s_mvt
 {
-  int                   forward;
-  int                   backward;
-  int                   left;
-  int                   right;
-  int                   cam_l;
-  int                   cam_r;
-}                       mvt_t;
+	int					forward;
+	int					backward;
+	int					left;
+	int					right;
+	int					cam_l;
+	int					cam_r;
+}						t_mvt;
 
 /*
 **  Structure for the DDA
 */
-typedef struct          dda_s
+typedef struct			s_dda
 {
-    double              cameraX;
-    double              rayDirX;
-    double              rayDirY;
-    int                 mapX;
-    int                 mapY;
-    double              sideDistX;
-    double              sideDistY;
-    double              deltaDistX;
-    double              deltaDistY;
-    double              perpWallDist;
-    int                 lineHeight;
-    int                 stepX;
-    int                 stepY;
-    int                 hit;
-    int                 side;
-    int                 drawstart;
-    int                 drawend;
-    double              wallx;
-}                       dda_t;
+	double				camerax;
+	double				raydirx;
+	double				raydiry;
+	int					mapx;
+	int					mapy;
+	double				sidedistx;
+	double				sidedisty;
+	double				deltadistx;
+	double				deltadisty;
+	double				perpwalldist;
+	int					lineheight;
+	int					stepx;
+	int					stepy;
+	int					hit;
+	int					side;
+	int					drawstart;
+	int					drawend;
+	double				wallx;
+}						t_dda;
 
 /*
 **  Structure for the sprites's location
 */
-typedef struct          sprite_s
+typedef struct			s_sprite
 {
-    double              sp_x;
-    double              sp_y;
-    double              sp_dist;
-}                       sprite_t;
+	double				sp_x;
+	double				sp_y;
+	double				sp_dist;
+}						t_sprite;
 
 /*
 **  Structure of the sprite's informations
 */
-typedef struct          sp_params_s
+typedef struct			s_sp_params
 {
-    int                 invdet;
-    double              transformx;
-    double              transformy;
-    int                 screenx;
-    int                 sp_h;
-    int                 drawstarty;
-    int                 drawendy;
-    int                 sp_w;
-    int                 drawstartx;
-    int                 drawendx;
-    int                 texx;
-}                       sp_params_t;
+	int					invdet;
+	double				transformx;
+	double				transformy;
+	int					screenx;
+	int					sp_h;
+	int					drawstarty;
+	int					drawendy;
+	int					sp_w;
+	int					drawstartx;
+	int					drawendx;
+	int					texx;
+}						t_sp_params;
 
 /*
 **  Global structure used for all the raycasting algorithm
 */
-typedef struct          parsing_s      
+typedef struct			s_parsing 
 {
-    int                 screenH;
-    int                 screenW;
-    int                 mapH;
-    int                 mapW;
-    double              posX;
-    double              posY;
-    double              dirX;
-    double              dirY;
-    double              planeX;
-    double              planeY;
-    int                 ceiling;
-    int                 floor;
-    int                 refresh;
-    char                **map;
-    int                 nsp;
-    sprite_t            *ssp;
-    mlx_t               mlx_val;
-    mvt_t               mvt;
-    dda_t               dda;
-    texture_t           n_texture;
-    texture_t           s_texture;
-    texture_t           w_texture;
-    texture_t           e_texture;
-    texture_t           sp_texture;
-}                       parsing_t;
-
+	int					screenH;
+	int					screenW;
+	int					mapH;
+	int					mapW;
+	double				posX;
+	double				posY;
+	double				dirX;
+	double				dirY;
+	double				planeX;
+	double				planeY;
+	int					ceiling;
+	int					floor;
+	int					refresh;
+	char				**map;
+	int					nsp;
+	t_sprite			*ssp;
+	t_mlx				mlx_val;
+	t_mvt				mvt;
+	t_dda				dda;
+	t_texture			n_texture;
+	t_texture			s_texture;
+	t_texture			w_texture;
+	t_texture			e_texture;
+	t_texture			sp_texture;
+}						t_parsing;
 
 /*
 **  ft_raycasting_algo.c
 */
-int                     ft_raycasting(parsing_t pars_val);
-
+int						ft_raycasting(t_parsing pars_val);
 
 /*
 ** ft_init_mlx.c
 */
-void                    ft_init_structure(parsing_t *p_st);
+void					ft_init_structure(t_parsing *p_st);
 
 /*
 **  ft_init_parsingstruct.c
 */
-void                    ft_init_parsing(parsing_t *parsing_val);
-void                    ft_init_mvt(parsing_t *parsing_val);
-void                    ft_init_dda(dda_t *dda_val);
+void					ft_init_parsing(t_parsing *parsing_val);
+void					ft_init_mvt(t_parsing *parsing_val);
+void					ft_init_dda(t_dda *dda_val);
 
 /*
 ** mvt_algo.c
 */
-void                    ft_event(parsing_t *p_val);
-
+void					ft_event(t_parsing *p_val);
 
 /*
 **  mvt_charac.c
 */
-void                    ft_forward(parsing_t *p_val);
-void                    ft_backward(parsing_t *p_val);
-void                    ft_right(parsing_t *p_val);
-void                    ft_left(parsing_t *p_val);
+void					ft_forward(t_parsing *p_val);
+void					ft_backward(t_parsing *p_val);
+void					ft_right(t_parsing *p_val);
+void					ft_left(t_parsing *p_val);
 
 /*
 **  mvt_cam.c
 */
-void                    ft_cam_r(parsing_t *p_val);
-void                    ft_cam_l(parsing_t *p_val);
-int                     ft_key_release(int keycode, parsing_t *p_val);
-int                     ft_key_push(int keycode, parsing_t *p_val);
+void					ft_cam_r(t_parsing *p_val);
+void					ft_cam_l(t_parsing *p_val);
+int						ft_key_release(int keycode, t_parsing *p_val);
+int						ft_key_push(int keycode, t_parsing *p_val);
 
 /*
 **  ft_texture.c
 */
-void                    ft_init_texture(parsing_t *pars_val, t_data *data);
-
+void					ft_init_texture(t_parsing *pars_val, t_data *data);
 
 /*
 **  ft_sprite.c
 */
-void                    ft_init_sprite(parsing_t *p_val);
-int                     ft_get_texy(parsing_t *p_val, sp_params_t *sp, int j);
-int                     ft_get_texx(sp_params_t *sp_p, int w);
+void					ft_init_sprite(t_parsing *p_val);
+int						ft_get_texy(t_parsing *p_val, t_sp_params *sp, int j);
+int						ft_get_texx(t_sp_params *sp_p, int w);
 
 /*
 **  ft sprites.c
 */
-void                    ft_draw_sprite(parsing_t *p_val, double *z_buff);
+void					ft_draw_sprite(t_parsing *p_val, double *z_buff);
 
 /*
 **  ft_put_pix.c
 */
-void	                ft_my_mlx_pixel_put(parsing_t *p_val, int x, int y, int color);
-
+void					ft_my_mlx_pixel_put(t_parsing *p_val, int x,
+							int y, int color);
 
 /*
 **  ft_dda.c
 */
-void                    ft_init_raycast(parsing_t *pars_val, int x);
-void                    ft_calc_stepx_y(parsing_t *pars_val);
-void                    ft_dda(parsing_t *pars_val);
-void                    ft_calc_perp_draw(parsing_t *pars_val, double *z_buff);
-void                    ft_put_txt_buff(parsing_t *p_val, int x);
-
+void					ft_init_raycast(t_parsing *pars_val, int x);
+void					ft_calc_stepx_y(t_parsing *pars_val);
+void					ft_dda(t_parsing *pars_val);
+void					ft_calc_perp_draw(t_parsing *pars_val, double *z_buff);
+void					ft_put_txt_buff(t_parsing *p_val, int x);
 
 /*
 **  ft_draw.c
 */
-texture_t               ft_choose_texture(int i, parsing_t *p_val);
-void                    ft_draw_ceiling(parsing_t *p_val, int *i, int x);
-void                    ft_draw_floor(parsing_t *p_val, int *i, int x);
-void                    ft_draw_wall(parsing_t *p_val, texture_t text, int x, int *i);
-
-
+t_texture				ft_choose_texture(int i, t_parsing *p_val);
+void					ft_draw_ceiling(t_parsing *p_val, int *i, int x);
+void					ft_draw_floor(t_parsing *p_val, int *i, int x);
+void					ft_draw_wall(t_parsing *p_val, t_texture text,
+							int x, int *i);
 
 /*
 **  ft_bmp.c
 */
-void                    ft_write_bmp(parsing_t *p_val, int fd);
+void					ft_write_bmp(t_parsing *p_val, int fd);
 
 /*
 **  ft_free_structure.c
 */
-void                    ft_free_map_raycasting(parsing_t *p_val);
-void                    ft_destroy_texture(parsing_t *p_val);
-void	                ft_free_mlx_ptr(void *mlx_ptr);
-void                    ft_free_sprite(parsing_t *p_val);
+void					ft_free_map_raycasting(t_parsing *p_val);
+void					ft_destroy_texture(t_parsing *p_val);
+void					ft_free_mlx_ptr(void *mlx_ptr);
+void					ft_free_sprite(t_parsing *p_val);
 
-
-// FT_COPY_PARSING_RAYCASTING
-void            ft_cpy_structure(t_data *data, parsing_t *p_val);
-void            ft_cpy_map(t_data *data, parsing_t *p_val);
+/*
+**	ft_copy_parsing_raycasting.c
+*/
+void					ft_cpy_structure(t_data *data, t_parsing *p_val);
+void					ft_cpy_map(t_data *data, t_parsing *p_val);
 #endif

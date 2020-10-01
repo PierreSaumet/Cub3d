@@ -25,106 +25,109 @@
 **  find the right color and then display the sprite.
 */
 
-static void            ft_sp_dist(parsing_t *p_val)
+static void			ft_sp_dist(parsing_t *p_val)
 {
-    int         i;
+	int				i;
 
-    i = 0;
-    while (i < p_val->nsp)
-    {
-        p_val->ssp[i].sp_dist = ((p_val->posX - p_val->ssp[i].sp_x) *
-                (p_val->posX - p_val->ssp[i].sp_x) + (p_val->posY -
-                p_val->ssp[i].sp_y) * (p_val->posY - p_val->ssp[i].sp_y));
-        i++;
-    }
+	i = 0;
+	while (i < p_val->nsp)
+	{
+		p_val->ssp[i].sp_dist = ((p_val->posX - p_val->ssp[i].sp_x) *
+				(p_val->posX - p_val->ssp[i].sp_x) + (p_val->posY -
+				p_val->ssp[i].sp_y) * (p_val->posY - p_val->ssp[i].sp_y));
+		i++;
+	}
 }
 
-static void            ft_sort_sp(parsing_t *p_val)
+static void			ft_sort_sp(parsing_t *p_val)
 {
-    int         i;
-    sprite_t    tmp;
+	int				i;
+	sprite_t		tmp;
 
-    i = 0;
-    while (i < p_val->nsp - 1)
-    {
-        if (p_val->ssp[i].sp_dist < p_val->ssp[i + 1].sp_dist)
-        {
-            tmp = p_val->ssp[i];
-            p_val->ssp[i] = p_val->ssp[i + 1];
-            p_val->ssp[i + 1] = tmp;
-            i = 0;
-        }
-        else
-            i++;
-    }
+	i = 0;
+	while (i < p_val->nsp - 1)
+	{
+		if (p_val->ssp[i].sp_dist < p_val->ssp[i + 1].sp_dist)
+		{
+			tmp = p_val->ssp[i];
+			p_val->ssp[i] = p_val->ssp[i + 1];
+			p_val->ssp[i + 1] = tmp;
+			i = 0;
+		}
+		else
+			i++;
+	}
 }
 
-static void            ft_sp_calcul(parsing_t *p_val, sp_params_t *sp,
-        double sp_x, double sp_y)
+static void			ft_sp_calcul(parsing_t *p_val, sp_params_t *sp,
+		double sp_x, double sp_y)
 {
-    sp_x = sp_x - p_val->posX + 0.5;
-    sp_y = sp_y - p_val->posY + 0.5;
-    sp->invdet = 1.0 / (p_val->planeX * p_val->dirY - p_val->dirX * p_val->planeY);
-    sp->transformx = sp->invdet * (p_val->dirY * sp_x - p_val->dirX *
-            sp_y);
-    sp->transformy = sp->invdet * (-p_val->planeY * sp_x + p_val->planeX *
-            sp_y);
-    sp->screenx = (int)((p_val->screenW / 2) * (1 + sp->transformx /
-            sp->transformy));
-    sp->sp_h = abs((int)(p_val->screenH / (sp->transformy)));
-    sp->drawstarty = -sp->sp_h / 2 + p_val->screenH / 2;
-    if (sp->drawstarty < 0)
-        sp->drawstarty = 0;
-    sp->drawendy = sp->sp_h / 2 + p_val->screenH / 2;
-    if (sp->drawendy >= p_val->screenH)
-        sp->drawendy = p_val->screenH - 1;
-    sp->sp_w = abs((int)(p_val->screenH / (sp->transformy)));
-    sp->drawstartx = -sp->sp_w / 2 + sp->screenx;
-    if (sp->drawstartx < 0)
-        sp->drawstartx = 0;
-    sp->drawendx = sp->sp_w / 2 + sp->screenx;
-    if (sp->drawendx >= p_val->screenW)
-        sp->drawendx = p_val->screenW - 1;
+	sp_x = sp_x - p_val->posX + 0.5;
+	sp_y = sp_y - p_val->posY + 0.5;
+	sp->invdet = 1.0 / (p_val->planeX * p_val->dirY - p_val->dirX
+		* p_val->planeY);
+	sp->transformx = sp->invdet * (p_val->dirY * sp_x - p_val->dirX *
+			sp_y);
+	sp->transformy = sp->invdet * (-p_val->planeY * sp_x + p_val->planeX *
+			sp_y);
+	sp->screenx = (int)((p_val->screenW / 2) * (1 + sp->transformx /
+			sp->transformy));
+	sp->sp_h = abs((int)(p_val->screenH / (sp->transformy)));
+	sp->drawstarty = -sp->sp_h / 2 + p_val->screenH / 2;
+	if (sp->drawstarty < 0)
+		sp->drawstarty = 0;
+	sp->drawendy = sp->sp_h / 2 + p_val->screenH / 2;
+	if (sp->drawendy >= p_val->screenH)
+		sp->drawendy = p_val->screenH - 1;
+	sp->sp_w = abs((int)(p_val->screenH / (sp->transformy)));
+	sp->drawstartx = -sp->sp_w / 2 + sp->screenx;
+	if (sp->drawstartx < 0)
+		sp->drawstartx = 0;
+	sp->drawendx = sp->sp_w / 2 + sp->screenx;
+	if (sp->drawendx >= p_val->screenW)
+		sp->drawendx = p_val->screenW - 1;
 }
 
-static void            ft_display_sprite(parsing_t *p_val, sp_params_t *sp, double *s_buff)
+static void			ft_display_sprite(parsing_t *p_val, sp_params_t *sp,
+		double *s_buff)
 {
-    int         i;
-    int         color;
+	int				i;
+	int				color;
 
-    i = 0;
-    color = 0;
-    while (sp->drawstartx < sp->drawendx)
-    {
-        sp->texx = (int)ft_get_texx(sp, p_val->sp_texture.w);
-        i = sp->drawstarty;
-        if (sp->transformy > 0 && sp->drawstartx > 0 && sp->drawstartx < p_val->screenW
-                && sp->transformy < s_buff[sp->drawstartx])
-        {
-            while (i < sp->drawendy)
-            {
-                color = p_val->sp_texture.img[p_val->sp_texture.w * ft_get_texy(p_val, sp, i) + sp->texx];
-                if (color != 0)
-                    ft_my_mlx_pixel_put(p_val, sp->drawstartx, i, color);
-                i++;
-            }
-        }
-        sp->drawstartx++;
-    }
+	i = 0;
+	color = 0;
+	while (sp->drawstartx < sp->drawendx)
+	{
+		sp->texx = (int)ft_get_texx(sp, p_val->sp_texture.w);
+		i = sp->drawstarty;
+		if (sp->transformy > 0 && sp->drawstartx > 0 && sp->drawstartx
+				< p_val->screenW && sp->transformy < s_buff[sp->drawstartx])
+		{
+			while (i < sp->drawendy)
+			{
+				color = p_val->sp_texture.img[p_val->sp_texture.w
+					* ft_get_texy(p_val, sp, i) + sp->texx];
+				if (color != 0)
+					ft_my_mlx_pixel_put(p_val, sp->drawstartx, i, color);
+				i++;
+			}
+		}
+		sp->drawstartx++;
+	}
 }
 
-void            ft_draw_sprite(parsing_t *p_val, double *z_buff)
+void				ft_draw_sprite(parsing_t *p_val, double *z_buff)
 {
-    int         i;
-    sp_params_t sp;
+	int				i;
+	sp_params_t		sp;
 
-    i = 0;
-    ft_sp_dist(p_val);
-    ft_sort_sp(p_val);
-    while (i < p_val->nsp)
-    {
-        ft_sp_calcul(p_val, &sp, p_val->ssp[i].sp_x, p_val->ssp[i].sp_y);
-        ft_display_sprite(p_val, &sp, z_buff);
-        i++;
-    }
+	i = 0;
+	ft_sp_dist(p_val);
+	ft_sort_sp(p_val);
+	while (i < p_val->nsp)
+	{
+		ft_sp_calcul(p_val, &sp, p_val->ssp[i].sp_x, p_val->ssp[i].sp_y);
+		ft_display_sprite(p_val, &sp, z_buff);
+		i++;
+	}
 }

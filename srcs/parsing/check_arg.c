@@ -17,20 +17,20 @@
 **  - 'check_arg(char *argv)':  it checks if the file argument is correct.
 */
 
-void                check_arg(char *argv)
+void				check_arg(char *argv)
 {
-    int             i;
+	int				i;
 
-    i = 0;
-    while (argv[i])
-    {
-        if (argv[i] == '.')
-        {
-            if (argv[i + 1] == 'c' && argv[i + 2] == 'u'
-                    && argv[i + 3] == 'b' && argv[i + 4] == '\0')
-                return ;
-        }
-        i++;
-    }
-    quit("Need one argument with the extension '.cub'\n");
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] == '.')
+		{
+			if (argv[i + 1] == 'c' && argv[i + 2] == 'u'
+					&& argv[i + 3] == 'b' && argv[i + 4] == '\0')
+				return ;
+		}
+		i++;
+	}
+	quit("Need one argument with the extension '.cub'\n");
 }

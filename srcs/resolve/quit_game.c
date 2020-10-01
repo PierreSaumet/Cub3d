@@ -19,20 +19,20 @@
 **  - 'ft_puterror(char *str)': display the string.
 */
 
-static void             ft_puterror(char *str)
+static void		ft_puterror(char *str)
 {
-    int                 i;
-    
-    i = 0;
-    if (!str)
-        return ;
-    write(1, "ERROR !\n\t", 9);
-    write(1, str, strlen(str));
+	int			i;
+
+	i = 0;
+	if (!str)
+		return ;
+	write(1, "ERROR !\n\t", 9);
+	write(1, str, strlen(str));
 }
 
-void                    quit(char *error_msg)
+void			quit(char *error_msg)
 {
-    if (error_msg)
-        ft_puterror(error_msg);
-    exit(1);
+	if (error_msg)
+		ft_puterror(error_msg);
+	exit(1);
 }

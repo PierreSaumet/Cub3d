@@ -22,69 +22,68 @@
 **  character.
 */
 
-
-void            cpy_tab(t_map *map, t_data *data)
+void			cpy_tab(t_map *map, t_data *data)
 {
-    int         i;
-    int         j;
+	int			i;
+	int			j;
 
-    i = 0;
-    j = 0;
-    while (i < data->map_h + 1)
-    {
-        j = 0;
-        while (j <= data->map_w)
-        {
-            map->map2[i][j] = data->map[i][j];
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	j = 0;
+	while (i < data->map_h + 1)
+	{
+		j = 0;
+		while (j <= data->map_w)
+		{
+			map->map2[i][j] = data->map[i][j];
+			j++;
+		}
+		i++;
+	}
 }
 
-static void            ft_malloc_tab(t_map *map, t_data *data)
+static void		ft_malloc_tab(t_map *map, t_data *data)
 {
-    int         i;
+	int			i;
 
-    i = 0;
-    if (!(map->map2 = (char **)malloc(sizeof(char *) * (data->map_h + 1))))
-        quit("Can not malloc the second map!\n");
-    while (i < data->map_h + 1)
-    {
-        if (!(map->map2[i] = malloc(sizeof(char *) * data->map_w)))
-            quit("Can not malloc the second map!\n");
-        i++;
-    }
+	i = 0;
+	if (!(map->map2 = (char **)malloc(sizeof(char *) * (data->map_h + 1))))
+		quit("Can not malloc the second map!\n");
+	while (i < data->map_h + 1)
+	{
+		if (!(map->map2[i] = malloc(sizeof(char *) * data->map_w)))
+			quit("Can not malloc the second map!\n");
+		i++;
+	}
 }
 
-static void            ft_find_carac(t_map *map, t_data *data)
+static void		ft_find_carac(t_map *map, t_data *data)
 {
-    int         i;
-    int         j;
+	int			i;
+	int			j;
 
-    i = 0;
-    j = 0;
-    while (i < data->map_h + 1)
-    {
-        j = 0;
-        while (j < data->map_w + 1)
-        {
-            if (map->map2[i][j] == 'S' || map->map2[i][j] == 'N'
-                    || map->map2[i][j] == 'S' || map->map2[i][j] == 'W')
-            {
-                map->x_c = j;
-                map->y_c = i;
-            }
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	j = 0;
+	while (i < data->map_h + 1)
+	{
+		j = 0;
+		while (j < data->map_w + 1)
+		{
+			if (map->map2[i][j] == 'S' || map->map2[i][j] == 'N'
+					|| map->map2[i][j] == 'S' || map->map2[i][j] == 'W')
+			{
+				map->x_c = j;
+				map->y_c = i;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
-void            ft_resolve(t_map *map, t_data *data)
+void			ft_resolve(t_map *map, t_data *data)
 {
-    ft_malloc_tab(map, data);
-    cpy_tab(map, data);
-    ft_find_carac(map, data);
-    find_object(map, data);
+	ft_malloc_tab(map, data);
+	cpy_tab(map, data);
+	ft_find_carac(map, data);
+	find_object(map, data);
 }

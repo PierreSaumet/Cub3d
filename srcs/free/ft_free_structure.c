@@ -12,20 +12,18 @@
 
 #include "../headers/cub3d.h"
 
-
 /*
 **              A faire en fonction des fuites memoiresa VALGRIND
 */
 
-void        ft_free_sprite(parsing_t *p_val)
+void				ft_free_sprite(parsing_t *p_val)
 {
-    if (p_val->ssp != NULL)
-        free(p_val->ssp);
-    p_val->ssp = NULL;
+	if (p_val->ssp != NULL)
+		free(p_val->ssp);
+	p_val->ssp = NULL;
 }
 
-
-void	ft_free_mlx_ptr(void *mlx_ptr)
+void				ft_free_mlx_ptr(void *mlx_ptr)
 {
 	struct s_xvar	*xvar;
 
@@ -36,32 +34,30 @@ void	ft_free_mlx_ptr(void *mlx_ptr)
 	free(xvar);
 }
 
-
-void        ft_destroy_texture(parsing_t *p_val)
+void				ft_destroy_texture(parsing_t *p_val)
 {
-    if (p_val->n_texture.img != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->n_texture.id);
-    if (p_val->s_texture.img != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->s_texture.id);
-    if (p_val->w_texture.img != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->w_texture.id);
-    if (p_val->e_texture.img != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->e_texture.id);
-    if (p_val->sp_texture.img != NULL)
-        mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->sp_texture.id);
+	if (p_val->n_texture.img != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->n_texture.id);
+	if (p_val->s_texture.img != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->s_texture.id);
+	if (p_val->w_texture.img != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->w_texture.id);
+	if (p_val->e_texture.img != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->e_texture.id);
+	if (p_val->sp_texture.img != NULL)
+		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->sp_texture.id);
 }
 
-
-void        ft_free_map_raycasting(parsing_t *p_val)
+void				ft_free_map_raycasting(parsing_t *p_val)
 {
-    int     i;
+	int				i;
 
-    i = 0;
-    while (i < p_val->mapH)
-    {
-        free(p_val->map[i]);
-        i++;
-    }
-    free(p_val->map);
-    p_val->map = NULL;
+	i = 0;
+	while (i < p_val->mapH)
+	{
+		free(p_val->map[i]);
+		i++;
+	}
+	free(p_val->map);
+	p_val->map = NULL;
 }

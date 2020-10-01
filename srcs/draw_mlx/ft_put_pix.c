@@ -22,15 +22,16 @@ void	ft_my_mlx_pixel_put(parsing_t *p_val, int x, int y, int color)
 {
 	char	*dst;
 
-    if (p_val->refresh == 0)
-    {
-        dst = p_val->mlx_val.img_data + (y * p_val->mlx_val.size_l + x * (p_val->mlx_val.bpp / 8));
-	    *(int*)dst = color;
-    }
-    else if (p_val->refresh == 1)
-    {
-        dst = p_val->mlx_val.img_data2 + (y * p_val->mlx_val.size_l2 + x * (p_val->mlx_val.bpp2 / 8));
-	    *(int*)dst = color;
-    }
-	
+	if (p_val->refresh == 0)
+	{
+		dst = p_val->mlx_val.img_data + (y * p_val->mlx_val.size_l + x *
+			(p_val->mlx_val.bpp / 8));
+		*(int*)dst = color;
+	}
+	else if (p_val->refresh == 1)
+	{
+		dst = p_val->mlx_val.img_data2 + (y * p_val->mlx_val.size_l2 + x *
+			(p_val->mlx_val.bpp2 / 8));
+		*(int*)dst = color;
+	}
 }

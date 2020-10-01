@@ -14,14 +14,14 @@
 
 /*
 **  This file contains 3 functions:
-**  - 'ft_init_texture(parsing_t *pars_val, t_data *data)': main loop for
+**  - 'ft_init_texture(t_parsing *pars_val, t_data *data)': main loop for
 **  initializing the textures.
-**  - 'ft_init_t(parsing_t *p_val)':    put all the variables to zero or NULL.
-**  - 'ft_set_txt(parsing_t *p_val, texture_t *t, char *src)':  load the
+**  - 'ft_init_t(t_parsing *p_val)':    put all the variables to zero or NULL.
+**  - 'ft_set_txt(t_parsing *p_val, t_texture *t, char *src)':  load the
 **  texture's pointer.
 */
 
-static void		ft_set_txt(parsing_t *p_val, texture_t *t, char *src)
+static void		ft_set_txt(t_parsing *p_val, t_texture *t, char *src)
 {
 	int			i[3];
 
@@ -39,7 +39,7 @@ static void		ft_set_txt(parsing_t *p_val, texture_t *t, char *src)
 	t->img = (int *)mlx_get_data_addr(t->id, &i[0], &i[1], &i[2]);
 }
 
-static void		ft_init_t(parsing_t *p_val)
+static void		ft_init_t(t_parsing *p_val)
 {
 	p_val->n_texture.img = NULL;
 	p_val->n_texture.id = NULL;
@@ -63,7 +63,7 @@ static void		ft_init_t(parsing_t *p_val)
 	p_val->sp_texture.w = 0;
 }
 
-void			ft_init_texture(parsing_t *pars_val, t_data *data)
+void			ft_init_texture(t_parsing *pars_val, t_data *data)
 {
 	ft_init_t(pars_val);
 	ft_set_txt(pars_val, &(pars_val->n_texture), data->pt_no);

@@ -14,35 +14,35 @@
 
 /*
 **  This file contains 5 functions:
-**  - 'ft_draw_sprite(parsing_t *p_val, double *z_buff)':   main function to
+**  - 'ft_draw_sprite(t_parsing *p_val, double *z_buff)':   main function to
 **  create sprite.
-**  - 'ft_sp_dist(parsing_t *p_val)':   Calculate the distance between the
+**  - 'ft_sp_dist(t_parsing *p_val)':   Calculate the distance between the
 **  sprite and character.
-**  - 'ft_sort_sp(parsing_t *p_val)':   Sort the sprites by distance.
-**  - 'ft_sp_calcul(parsing_t *p_val, sp_params_t *sp, double sp_x,
+**  - 'ft_sort_sp(t_parsing *p_val)':   Sort the sprites by distance.
+**  - 'ft_sp_calcul(t_parsing *p_val, t_sp_params *sp, double sp_x,
 **      double sp_y)':  Made the calculs for displaying the sprites.
-**  - 'ft_display_sprite(parsing_t *p_val, sp_params_t *sp, double *s_buff)':
+**  - 'ft_display_sprite(t_parsing *p_val, t_sp_params *sp, double *s_buff)':
 **  find the right color and then display the sprite.
 */
 
-static void			ft_sp_dist(parsing_t *p_val)
+static void			ft_sp_dist(t_parsing *p_val)
 {
 	int				i;
 
 	i = 0;
 	while (i < p_val->nsp)
 	{
-		p_val->ssp[i].sp_dist = ((p_val->posX - p_val->ssp[i].sp_x) *
-				(p_val->posX - p_val->ssp[i].sp_x) + (p_val->posY -
-				p_val->ssp[i].sp_y) * (p_val->posY - p_val->ssp[i].sp_y));
+		p_val->ssp[i].sp_dist = ((p_val->posx - p_val->ssp[i].sp_x) *
+				(p_val->posx - p_val->ssp[i].sp_x) + (p_val->posy -
+				p_val->ssp[i].sp_y) * (p_val->posy - p_val->ssp[i].sp_y));
 		i++;
 	}
 }
 
-static void			ft_sort_sp(parsing_t *p_val)
+static void			ft_sort_sp(t_parsing *p_val)
 {
 	int				i;
-	sprite_t		tmp;
+	t_sprite		tmp;
 
 	i = 0;
 	while (i < p_val->nsp - 1)
@@ -59,36 +59,36 @@ static void			ft_sort_sp(parsing_t *p_val)
 	}
 }
 
-static void			ft_sp_calcul(parsing_t *p_val, sp_params_t *sp,
+static void			ft_sp_calcul(t_parsing *p_val, t_sp_params *sp,
 		double sp_x, double sp_y)
 {
-	sp_x = sp_x - p_val->posX + 0.5;
-	sp_y = sp_y - p_val->posY + 0.5;
-	sp->invdet = 1.0 / (p_val->planeX * p_val->dirY - p_val->dirX
-		* p_val->planeY);
-	sp->transformx = sp->invdet * (p_val->dirY * sp_x - p_val->dirX *
+	sp_x = sp_x - p_val->posx + 0.5;
+	sp_y = sp_y - p_val->posy + 0.5;
+	sp->invdet = 1.0 / (p_val->planex * p_val->diry - p_val->dirx
+		* p_val->planey);
+	sp->transformx = sp->invdet * (p_val->diry * sp_x - p_val->dirx *
 			sp_y);
-	sp->transformy = sp->invdet * (-p_val->planeY * sp_x + p_val->planeX *
+	sp->transformy = sp->invdet * (-p_val->planey * sp_x + p_val->planex *
 			sp_y);
-	sp->screenx = (int)((p_val->screenW / 2) * (1 + sp->transformx /
+	sp->screenx = (int)((p_val->screenw / 2) * (1 + sp->transformx /
 			sp->transformy));
-	sp->sp_h = abs((int)(p_val->screenH / (sp->transformy)));
-	sp->drawstarty = -sp->sp_h / 2 + p_val->screenH / 2;
+	sp->sp_h = abs((int)(p_val->screenh / (sp->transformy)));
+	sp->drawstarty = -sp->sp_h / 2 + p_val->screenh / 2;
 	if (sp->drawstarty < 0)
 		sp->drawstarty = 0;
-	sp->drawendy = sp->sp_h / 2 + p_val->screenH / 2;
-	if (sp->drawendy >= p_val->screenH)
-		sp->drawendy = p_val->screenH - 1;
-	sp->sp_w = abs((int)(p_val->screenH / (sp->transformy)));
+	sp->drawendy = sp->sp_h / 2 + p_val->screenh / 2;
+	if (sp->drawendy >= p_val->screenh)
+		sp->drawendy = p_val->screenh - 1;
+	sp->sp_w = abs((int)(p_val->screenh / (sp->transformy)));
 	sp->drawstartx = -sp->sp_w / 2 + sp->screenx;
 	if (sp->drawstartx < 0)
 		sp->drawstartx = 0;
 	sp->drawendx = sp->sp_w / 2 + sp->screenx;
-	if (sp->drawendx >= p_val->screenW)
-		sp->drawendx = p_val->screenW - 1;
+	if (sp->drawendx >= p_val->screenw)
+		sp->drawendx = p_val->screenw - 1;
 }
 
-static void			ft_display_sprite(parsing_t *p_val, sp_params_t *sp,
+static void			ft_display_sprite(t_parsing *p_val, t_sp_params *sp,
 		double *s_buff)
 {
 	int				i;
@@ -101,7 +101,7 @@ static void			ft_display_sprite(parsing_t *p_val, sp_params_t *sp,
 		sp->texx = (int)ft_get_texx(sp, p_val->sp_texture.w);
 		i = sp->drawstarty;
 		if (sp->transformy > 0 && sp->drawstartx > 0 && sp->drawstartx
-				< p_val->screenW && sp->transformy < s_buff[sp->drawstartx])
+				< p_val->screenw && sp->transformy < s_buff[sp->drawstartx])
 		{
 			while (i < sp->drawendy)
 			{
@@ -116,10 +116,10 @@ static void			ft_display_sprite(parsing_t *p_val, sp_params_t *sp,
 	}
 }
 
-void				ft_draw_sprite(parsing_t *p_val, double *z_buff)
+void				ft_draw_sprite(t_parsing *p_val, double *z_buff)
 {
 	int				i;
-	sp_params_t		sp;
+	t_sp_params		sp;
 
 	i = 0;
 	ft_sp_dist(p_val);

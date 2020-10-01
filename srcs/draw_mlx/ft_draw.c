@@ -14,17 +14,17 @@
 
 /*
 **  This file contains 4 functions:
-**  - 'ft_choose_texture(int i, parsing_t *p_val)': return the right texture
+**  - 'ft_choose_texture(int i, t_parsing *p_val)': return the right texture
 **  to display.
-**  - 'ft_draw_ceiling(parsing_t *p_val, int *i, int x)':   it will draw the
+**  - 'ft_draw_ceiling(t_parsing *p_val, int *i, int x)':   it will draw the
 **  ceiling. Starts from zero and stop when the wall starts.
-**  - 'ft_draw_floor(parsing_t *p_val, int *i, int x)': it will draw the floor.
+**  - 'ft_draw_floor(t_parsing *p_val, int *i, int x)': it will draw the floor.
 **  Starts from the end of the wall to the end of screen.
-**  - 'ft_draw_wall(parsing_t *p_val, texture_t text, int x, int *i)':
+**  - 'ft_draw_wall(t_parsing *p_val, t_texture text, int x, int *i)':
 **  This function will display all the wall. Uses raycasting and DDA.
 */
 
-texture_t		ft_choose_texture(int i, parsing_t *p_val)
+t_texture		ft_choose_texture(int i, t_parsing *p_val)
 {
 	if (i == 1)
 		return (p_val->n_texture);
@@ -37,7 +37,7 @@ texture_t		ft_choose_texture(int i, parsing_t *p_val)
 	return (p_val->n_texture);
 }
 
-void			ft_draw_ceiling(parsing_t *p_val, int *i, int x)
+void			ft_draw_ceiling(t_parsing *p_val, int *i, int x)
 {
 	while (*i < p_val->dda.drawstart)
 	{
@@ -46,16 +46,16 @@ void			ft_draw_ceiling(parsing_t *p_val, int *i, int x)
 	}
 }
 
-void			ft_draw_floor(parsing_t *p_val, int *i, int x)
+void			ft_draw_floor(t_parsing *p_val, int *i, int x)
 {
-	while (*i < p_val->screenH && *i >= p_val->dda.drawend)
+	while (*i < p_val->screenh && *i >= p_val->dda.drawend)
 	{
 		ft_my_mlx_pixel_put(p_val, x, *i, p_val->floor);
 		(*i)++;
 	}
 }
 
-void			ft_draw_wall(parsing_t *p_val, texture_t text, int x, int *i)
+void			ft_draw_wall(t_parsing *p_val, t_texture text, int x, int *i)
 {
 	int			texx;
 	int			texy;
@@ -65,14 +65,14 @@ void			ft_draw_wall(parsing_t *p_val, texture_t text, int x, int *i)
 
 	texx = (int)(p_val->dda.wallx * (double)text.w);
 	if ((p_val->dda.side == NORTH || p_val->dda.side == SOUTH)
-			&& p_val->dda.rayDirX > 0)
+			&& p_val->dda.raydirx > 0)
 		texx = (double)text.w - texx - 1;
 	else if ((p_val->dda.side == EAST || p_val->dda.side == WEST)
-			&& p_val->dda.rayDirY < 0)
+			&& p_val->dda.raydiry < 0)
 		texx = (double)text.w - texx - 1;
-	step = 1.0 * text.h / p_val->dda.lineHeight;
-	texpos = (p_val->dda.drawstart - p_val->screenH / 2 +
-			p_val->dda.lineHeight / 2) * step;
+	step = 1.0 * text.h / p_val->dda.lineheight;
+	texpos = (p_val->dda.drawstart - p_val->screenh / 2 +
+			p_val->dda.lineheight / 2) * step;
 	*i = p_val->dda.drawstart;
 	while ((*i)++ < p_val->dda.drawend)
 	{

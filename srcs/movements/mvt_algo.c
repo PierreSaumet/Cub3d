@@ -14,17 +14,17 @@
 
 /*
 **  This file contains 4 functions:
-**  - 'ft_event(parsing_t *p_val)':     Use mlx_hook and mlx_hook_loop to create
+**  - 'ft_event(*p_val)':     Use mlx_hook and mlx_hook_loop to create
 **  a loop and and get the instructions from the player.
-**  - 'ft_refresh(parsing_t *p_val)':   This function will call 'ft_check_key',
+**  - 'ft_refresh(t_parsing *p_val)':   This function will call 'ft_check_key',
 **  then, call ft_raycasting and finally display the first or the second image.
-**  - 'ft_check_key(parsing_t *p_val)': It will call the right function for the
+**  - 'ft_check_key(t_parsing *p_val)': It will call the right function for the
 **  player's movements.
-**  - 'ft_key_press(int keycode, parsing_t *p_val)':    It will quit the
+**  - 'ft_key_press(int keycode, t_parsing *p_val)':    It will quit the
 **  program and use a function to save the player's action.
 */
 
-static int			ft_key_press(int keycode, parsing_t *p_val)
+static int			ft_key_press(int keycode, t_parsing *p_val)
 {
 	if (keycode == K_ESC)
 	{
@@ -44,7 +44,7 @@ static int			ft_key_press(int keycode, parsing_t *p_val)
 	return (0);
 }
 
-static void			ft_check_key(parsing_t *p_val)
+static void			ft_check_key(t_parsing *p_val)
 {
 	if (p_val->mvt.forward == 1)
 		ft_forward(p_val);
@@ -60,7 +60,7 @@ static void			ft_check_key(parsing_t *p_val)
 		ft_cam_l(p_val);
 }
 
-static int			ft_refresh(parsing_t *p_val)
+static int			ft_refresh(t_parsing *p_val)
 {
 	ft_check_key(p_val);
 	ft_raycasting(*p_val);
@@ -79,7 +79,7 @@ static int			ft_refresh(parsing_t *p_val)
 	return (0);
 }
 
-static int			ft_close_window(parsing_t *p_val)
+static int			ft_close_window(t_parsing *p_val)
 {
 	ft_destroy_texture(p_val);
 	if (p_val->mlx_val.img_ptr != NULL)
@@ -95,7 +95,7 @@ static int			ft_close_window(parsing_t *p_val)
 	return (0);
 }
 
-void				ft_event(parsing_t *p_val)
+void				ft_event(t_parsing *p_val)
 {
 	mlx_hook(p_val->mlx_val.win_ptr, 3, 1L << 1, ft_key_release, p_val);
 	mlx_hook(p_val->mlx_val.win_ptr, 2, 1L << 0, ft_key_press, p_val);

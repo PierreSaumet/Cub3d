@@ -14,11 +14,11 @@
 
 /*
 **  This file contains only one function.
-**  - 'ft_my_mlx_pixel_put(parsing_t *p_val, int x, int y, int color)': put the
+**  - 'ft_my_mlx_pixel_put(t_parsing *p_val, int x, int y, int color)': put the
 **  pixel to display in the image 1 or image 2.
 */
 
-void	ft_my_mlx_pixel_put(parsing_t *p_val, int x, int y, int color)
+void	ft_my_mlx_pixel_put(t_parsing *p_val, int x, int y, int color)
 {
 	char	*dst;
 

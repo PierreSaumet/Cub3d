@@ -16,11 +16,11 @@
 **  This file contains 5 functions:
 **  - 'main(int argc, char **argv)':    the main function, checks arguments
 **  and process the program.
-**  - 'ft_bmp(char **argv, t_data *data, parsing_t *parsing_val, t_map *map)':
+**  - 'ft_bmp(char **argv, t_data *data, t_parsing *parsing_val, t_map *map)':
 **  init the parameters for saving the bmp file.
-**  - 'ft_init_game(t_data *data, parsing_t *parsing_val)': copy the structure
+**  - 'ft_init_game(t_data *data, t_parsing *parsing_val)': copy the structure
 **  from parsing to raycasting and init the other paranms for the raycasting.
-**  - 'ft_start_game(parsing_t parsing_val)':   main loop for the raycasting and
+**  - 'ft_start_game(t_parsing parsing_val)':   main loop for the raycasting and
 **  uses the minilibx.
 **  - 'ft_start_parsing(char **argv, t_data *data, t_map *map)':    starts
 **  the parsing form the .cub.
@@ -50,7 +50,7 @@ void            ft_start_parsing(char **argv, t_data *data, t_map *map)
     map->map2 = NULL;
 }
 
-void            ft_start_game(parsing_t parsing_val)
+void            ft_start_game(t_parsing parsing_val)
 {
     ft_raycasting(parsing_val);
     mlx_put_image_to_window(parsing_val.mlx_val.mlx_ptr,
@@ -59,7 +59,7 @@ void            ft_start_game(parsing_t parsing_val)
     mlx_loop(parsing_val.mlx_val.mlx_ptr);
 }
 
-void            ft_init_game(t_data *data, parsing_t *parsing_val)
+void            ft_init_game(t_data *data, t_parsing *parsing_val)
 {
     ft_cpy_structure(data, parsing_val);
     ft_init_structure(parsing_val);
@@ -69,7 +69,7 @@ void            ft_init_game(t_data *data, parsing_t *parsing_val)
 }
 
 static void            ft_bmp(char **argv, t_data *data,
-        parsing_t *parsing_val, t_map *map)
+        t_parsing *parsing_val, t_map *map)
 {
     int         fd;
 
@@ -125,12 +125,12 @@ void            ft_full_free1(t_data data, t_map map)
 
 }
 
-void            ft_full_free_2(t_data data, parsing_t p_val, t_map map)
+void            ft_full_free_2(t_data data, t_parsing p_val, t_map map)
 {
     // Libere la 3eme map utilisee pour le raycasting
     int         i;
     i = 0;
-    //printf("p_val.maph = %d p_val.mapW =%d\n", p_val.mapH, p_val.mapW);
+    //printf("p_val.maph = %d p_val.mapw =%d\n", p_val.maph, p_val.mapw);
     while (i < data.map_h + 1)
     {
         free(p_val.map[i]);
@@ -152,8 +152,8 @@ int             main(int argc, char **argv)
 {
     t_data      data;
     t_map       map;
-    parsing_t   parsing_val;
-    dda_t       dda_val;
+    t_parsing   parsing_val;
+    t_dda       dda_val;
 
     if (argc < 2 || argc > 3)
         quit("Need one argument or two with --save!\n");
@@ -167,7 +167,7 @@ int             main(int argc, char **argv)
         
         //ft_full_free1(data, map);
         //ft_full_free_2(data, parsing_val, map);
-        //printf("p_val.maph = %d p_val.mapW =%d et data.map_h + 1 = %d\n", parsing_val.mapH, parsing_val.mapW, data.map_h + 1);
+        //printf("p_val.maph = %d p_val.mapw =%d et data.map_h + 1 = %d\n", parsing_val.maph, parsing_val.mapw, data.map_h + 1);
         ft_start_game(parsing_val);
         
         //printf("bonjour?\n");

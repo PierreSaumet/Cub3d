@@ -14,28 +14,28 @@
 
 /*
 **  This file contains 3 functions all used to initialize the structures.
-**  - 'ft_init_dda(dda_t *dda_val)': put 0 to the variables used for DDA,
-**  - 'ft_init_mvt(parsing_t *parsing_val)':    put 0 to the variables for
+**  - 'ft_init_dda(t_dda *dda_val)': put 0 to the variables used for DDA,
+**  - 'ft_init_mvt(t_parsing *parsing_val)':    put 0 to the variables for
 **  the movements.
-**  - 'ft_init_parsing(parsing_t *parsing_val)': first initialization.
+**  - 'ft_init_parsing(t_parsing *parsing_val)': first initialization.
 **  the variables will change right after the call of the function.
 */
 
-void			ft_init_dda(dda_t *dda_val)
+void			ft_init_dda(t_dda *dda_val)
 {
-	dda_val->cameraX = 0;
-	dda_val->rayDirX = 0;
-	dda_val->rayDirY = 0;
-	dda_val->mapX = 0;
-	dda_val->mapY = 0;
-	dda_val->sideDistX = 0;
-	dda_val->sideDistY = 0;
-	dda_val->deltaDistX = 0;
-	dda_val->deltaDistY = 0;
-	dda_val->perpWallDist = 0;
-	dda_val->lineHeight = 0;
-	dda_val->stepX = 0;
-	dda_val->stepY = 0;
+	dda_val->camerax = 0;
+	dda_val->raydirx = 0;
+	dda_val->raydiry = 0;
+	dda_val->mapx = 0;
+	dda_val->mapy = 0;
+	dda_val->sidedistx = 0;
+	dda_val->sidedisty = 0;
+	dda_val->deltadistx = 0;
+	dda_val->deltadisty = 0;
+	dda_val->perpwalldist = 0;
+	dda_val->lineheight = 0;
+	dda_val->stepx = 0;
+	dda_val->stepy = 0;
 	dda_val->hit = 0;
 	dda_val->side = 0;
 	dda_val->drawstart = 0;
@@ -43,7 +43,7 @@ void			ft_init_dda(dda_t *dda_val)
 	dda_val->wallx = 0;
 }
 
-void			ft_init_mvt(parsing_t *parsing_val)
+void			ft_init_mvt(t_parsing *parsing_val)
 {
 	parsing_val->mvt.forward = 0;
 	parsing_val->mvt.backward = 0;
@@ -53,21 +53,21 @@ void			ft_init_mvt(parsing_t *parsing_val)
 	parsing_val->mvt.cam_r = 0;
 }
 
-void			ft_init_parsing(parsing_t *parsing_val)
+void			ft_init_parsing(t_parsing *parsing_val)
 {
 	double		radian;
 
 	radian = (60 / 2) * (3.14159275 / 180);
-	parsing_val->screenW = 640;
-	parsing_val->screenH = 480;
-	parsing_val->mapH = 24;
-	parsing_val->mapW = 24;
-	parsing_val->posX = (double)22 + 0.5;
-	parsing_val->posY = (double)12 + 0.5;
-	parsing_val->dirX = -1;
-	parsing_val->dirY = 0;
-	parsing_val->planeX = (parsing_val->dirY * tan(radian / 2.0));
-	parsing_val->planeY = -(parsing_val->dirX * tan(radian / 2.0));
+	parsing_val->screenw = 640;
+	parsing_val->screenh = 480;
+	parsing_val->maph = 24;
+	parsing_val->mapw = 24;
+	parsing_val->posx = (double)22 + 0.5;
+	parsing_val->posy = (double)12 + 0.5;
+	parsing_val->dirx = -1;
+	parsing_val->diry = 0;
+	parsing_val->planex = (parsing_val->diry * tan(radian / 2.0));
+	parsing_val->planey = -(parsing_val->dirx * tan(radian / 2.0));
 	parsing_val->refresh = 0;
 	parsing_val->floor = 0xDC6400;
 	parsing_val->ceiling = 0xFF1E00;

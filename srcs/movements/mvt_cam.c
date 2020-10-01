@@ -14,45 +14,45 @@
 
 /*
 **  This file contains 4 functions:
-**  -'ft_cam_r(parsing_t *p_val)':      Rotate the camera on the right side,
+**  -'ft_cam_r(t_parsing *p_val)':      Rotate the camera on the right side,
 **  use ROTSPEED (0.01, faster? increase it!).
-**  -'ft_cam_l(parsing_t *p_val)':      Rotate the camera on the left side,
+**  -'ft_cam_l(t_parsing *p_val)':      Rotate the camera on the left side,
 **  use ROTSPEED (0.01, faster? increase it!).
-**  -'ft_key_release(int keycode, parsing_t *p_val)':   Put the value of the
+**  -'ft_key_release(int keycode, t_parsing *p_val)':   Put the value of the
 **  command to 0. (The player stop using this command).
-**  -'ft_key_push(int keycode, parsing_t *p_val)':      Put the value of the
+**  -'ft_key_push(int keycode, t_parsing *p_val)':      Put the value of the
 **  command to 1. (The player is using this command).
 */
 
-void			ft_cam_r(parsing_t *p_val)
+void			ft_cam_r(t_parsing *p_val)
 {
 	double		olddirx;
 	double		oldplanex;
 
-	olddirx = p_val->dirX;
-	oldplanex = p_val->planeX;
-	p_val->dirX = p_val->dirX * cos(-ROTSPEED) - p_val->dirY * sin(-ROTSPEED);
-	p_val->dirY = olddirx * sin(-ROTSPEED) + p_val->dirY * cos(-ROTSPEED);
-	p_val->planeX = p_val->planeX * cos(-ROTSPEED) - p_val->planeY
+	olddirx = p_val->dirx;
+	oldplanex = p_val->planex;
+	p_val->dirx = p_val->dirx * cos(-ROTSPEED) - p_val->diry * sin(-ROTSPEED);
+	p_val->diry = olddirx * sin(-ROTSPEED) + p_val->diry * cos(-ROTSPEED);
+	p_val->planex = p_val->planex * cos(-ROTSPEED) - p_val->planey
 		* sin(-ROTSPEED);
-	p_val->planeY = oldplanex * sin(-ROTSPEED) + p_val->planeY * cos(-ROTSPEED);
+	p_val->planey = oldplanex * sin(-ROTSPEED) + p_val->planey * cos(-ROTSPEED);
 }
 
-void			ft_cam_l(parsing_t *p_val)
+void			ft_cam_l(t_parsing *p_val)
 {
 	double		olddirx;
 	double		oldplanex;
 
-	olddirx = p_val->dirX;
-	oldplanex = p_val->planeX;
-	p_val->dirX = p_val->dirX * cos(ROTSPEED) - p_val->dirY * sin(ROTSPEED);
-	p_val->dirY = olddirx * sin(ROTSPEED) + p_val->dirY * cos(ROTSPEED);
-	p_val->planeX = p_val->planeX * cos(ROTSPEED) - p_val->planeY
+	olddirx = p_val->dirx;
+	oldplanex = p_val->planex;
+	p_val->dirx = p_val->dirx * cos(ROTSPEED) - p_val->diry * sin(ROTSPEED);
+	p_val->diry = olddirx * sin(ROTSPEED) + p_val->diry * cos(ROTSPEED);
+	p_val->planex = p_val->planex * cos(ROTSPEED) - p_val->planey
 		* sin(ROTSPEED);
-	p_val->planeY = oldplanex * sin(ROTSPEED) + p_val->planeY * cos(ROTSPEED);
+	p_val->planey = oldplanex * sin(ROTSPEED) + p_val->planey * cos(ROTSPEED);
 }
 
-int				ft_key_release(int keycode, parsing_t *p_val)
+int				ft_key_release(int keycode, t_parsing *p_val)
 {
 	if (keycode == K_W)
 		p_val->mvt.forward = 0;
@@ -69,7 +69,7 @@ int				ft_key_release(int keycode, parsing_t *p_val)
 	return (0);
 }
 
-int				ft_key_push(int keycode, parsing_t *p_val)
+int				ft_key_push(int keycode, t_parsing *p_val)
 {
 	if (keycode == K_W)
 		p_val->mvt.forward = 1;

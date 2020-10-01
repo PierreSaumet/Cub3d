@@ -15,11 +15,11 @@
 /*
 **  This file contains 5 functions:
 **  - 'ft_strcpy_map(char *dst, char *src)':    find the NSWE and change it
-**  - 'ft_cpy_map(t_data *data, parsing_t *p_val)': copy the map.
-**  - 'ft_get_position(t_data *data, parsing_t *p_val)':    get the position
+**  - 'ft_cpy_map(t_data *data, t_parsing *p_val)': copy the map.
+**  - 'ft_get_position(t_data *data, t_parsing *p_val)':    get the position
 **  - 'ft_rgb(int r, int g, int b)':    return the int used for the color of
 **  ceiling or floor.
-**  - 'ft_cpy_structure(t_data *data, parsing_t *p_val)': copy the data from
+**  - 'ft_cpy_structure(t_data *data, t_parsing *p_val)': copy the data from
 **  the parsing to the structure used for the raycasting.
 */
 
@@ -43,7 +43,7 @@ static char				*ft_strcpy_map(char *dst, char *src)
 	return (str);
 }
 
-void					ft_cpy_map(t_data *data, parsing_t *p_val)
+void					ft_cpy_map(t_data *data, t_parsing *p_val)
 {
 	int					i;
 
@@ -62,38 +62,37 @@ void					ft_cpy_map(t_data *data, parsing_t *p_val)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < data->map_h + 1)
+	i = -1;
+	while (++i < data->map_h + 1)
 	{
 		ft_strcpy_map(p_val->map[i], data->map[i]);
 		free(data->map[i]);
-		i++;
 	}
 	free(data->map);
 	data->map = NULL;
 }
 
-static void				ft_get_position(t_data *data, parsing_t *p_val)
+static void				ft_get_position(t_data *data, t_parsing *p_val)
 {
 	if (data->charac == 'N')
 	{
-		p_val->dirX = -1;
-		p_val->dirY = 0;
+		p_val->dirx = -1;
+		p_val->diry = 0;
 	}
 	else if (data->charac == 'S')
 	{
-		p_val->dirX = 1;
-		p_val->dirY = 0;
+		p_val->dirx = 1;
+		p_val->diry = 0;
 	}
 	else if (data->charac == 'W')
 	{
-		p_val->dirX = 0;
-		p_val->dirY = -1;
+		p_val->dirx = 0;
+		p_val->diry = -1;
 	}
 	else if (data->charac == 'E')
 	{
-		p_val->dirX = 0;
-		p_val->dirY = 1;
+		p_val->dirx = 0;
+		p_val->diry = 1;
 	}
 	else
 		quit("The character should be only NSW or E\n");
@@ -104,21 +103,21 @@ static int				ft_rgb(int r, int g, int b)
 	return ((256 * 256 * r) + (256 * g) + b);
 }
 
-void					ft_cpy_structure(t_data *data, parsing_t *p_val)
+void					ft_cpy_structure(t_data *data, t_parsing *p_val)
 {
 	double				radian;
 
 	radian = (60 / 2) * (3.14159275 / 180);
 	ft_init_parsing(p_val);
-	p_val->screenW = data->rx;
-	p_val->screenH = data->ry;
-	p_val->mapH = data->map_h + 1;
-	p_val->mapW = data->map_w + 1;
-	p_val->posX = (double)data->c_y + 0.5;
-	p_val->posY = (double)data->c_x + 0.5;
+	p_val->screenw = data->rx;
+	p_val->screenh = data->ry;
+	p_val->maph = data->map_h + 1;
+	p_val->mapw = data->map_w + 1;
+	p_val->posx = (double)data->c_y + 0.5;
+	p_val->posy = (double)data->c_x + 0.5;
 	ft_get_position(data, p_val);
-	p_val->planeX = (p_val->dirY * tan(radian / 2.0));
-	p_val->planeY = -(p_val->dirX * tan(radian / 2.0));
+	p_val->planex = (p_val->diry * tan(radian / 2.0));
+	p_val->planey = -(p_val->dirx * tan(radian / 2.0));
 	p_val->refresh = 0;
 	p_val->floor = ft_rgb(data->fr, data->fg, data->fb);
 	p_val->ceiling = ft_rgb(data->cr, data->cg, data->cb);

@@ -14,16 +14,16 @@
 
 /*
 **  This file contains 4 functions:
-**  - 'ft_get_location_sp(parsing_t *p_val)':   Get the location of all sprites
-**  - 'ft_init_sprite(parsing_t *p_val)':   Count the number of sprites, and
+**  - 'ft_get_location_sp(t_parsing *p_val)':   Get the location of all sprites
+**  - 'ft_init_sprite(t_parsing *p_val)':   Count the number of sprites, and
 **  malloc the right size of the structure's sprite.
-**  - 'ft_get_texx(sp_params_t *sp_p, int w)':  return the location of
+**  - 'ft_get_texx(t_sp_params *sp_p, int w)':  return the location of
 **  the texx.
-** - ' ft_get_texy(parsing_t *p_val, sp_params_t *sp, int j)':  return the
+** - ' ft_get_texy(t_parsing *p_val, t_sp_params *sp, int j)':  return the
 **  location ofthe texy.
 */
 
-static void		ft_get_location_sp(parsing_t *p_val)
+static void		ft_get_location_sp(t_parsing *p_val)
 {
 	int			i;
 	int			j;
@@ -32,10 +32,10 @@ static void		ft_get_location_sp(parsing_t *p_val)
 	i = 0;
 	j = 0;
 	x = 0;
-	while (i < p_val->mapH)
+	while (i < p_val->maph)
 	{
 		j = 0;
-		while (j < (p_val->mapW - 1))
+		while (j < (p_val->mapw - 1))
 		{
 			if (p_val->map[i][j] == '2')
 			{
@@ -49,7 +49,7 @@ static void		ft_get_location_sp(parsing_t *p_val)
 	}
 }
 
-void			ft_init_sprite(parsing_t *p_val)
+void			ft_init_sprite(t_parsing *p_val)
 {
 	int			i;
 	int			j;
@@ -58,10 +58,10 @@ void			ft_init_sprite(parsing_t *p_val)
 	i = 0;
 	j = 0;
 	p_val->nsp = 0;
-	while (i < p_val->mapH)
+	while (i < p_val->maph)
 	{
 		j = 0;
-		while (j < (p_val->mapW - 1))
+		while (j < (p_val->mapw - 1))
 		{
 			if (p_val->map[i][j] == '2')
 				p_val->nsp++;
@@ -69,7 +69,7 @@ void			ft_init_sprite(parsing_t *p_val)
 		}
 		i++;
 	}
-	if (!(p_val->ssp = (sprite_t *)malloc(sizeof(sprite_t) *
+	if (!(p_val->ssp = (t_sprite *)malloc(sizeof(t_sprite) *
 			p_val->nsp)))
 	{
 		printf("Erreur malloc sprite\n");
@@ -78,14 +78,14 @@ void			ft_init_sprite(parsing_t *p_val)
 	ft_get_location_sp(p_val);
 }
 
-int				ft_get_texx(sp_params_t *sp_p, int w)
+int				ft_get_texx(t_sp_params *sp_p, int w)
 {
 	return (((256 * (sp_p->drawstartx - (-sp_p->sp_w
 		/ 2 + sp_p->screenx)) * w / sp_p->sp_w) / 256));
 }
 
-int				ft_get_texy(parsing_t *p_val, sp_params_t *sp, int j)
+int				ft_get_texy(t_parsing *p_val, t_sp_params *sp, int j)
 {
-	return (((((j) * 256 - p_val->screenH * 128 + sp->sp_h * 128)
+	return (((((j) * 256 - p_val->screenh * 128 + sp->sp_h * 128)
 		* p_val->sp_texture.h) / sp->sp_h) / 256);
 }

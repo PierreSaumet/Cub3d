@@ -16,7 +16,7 @@
 **              A faire en fonction des fuites memoiresa VALGRIND
 */
 
-void				ft_free_sprite(parsing_t *p_val)
+void				ft_free_sprite(t_parsing *p_val)
 {
 	if (p_val->ssp != NULL)
 		free(p_val->ssp);
@@ -34,7 +34,7 @@ void				ft_free_mlx_ptr(void *mlx_ptr)
 	free(xvar);
 }
 
-void				ft_destroy_texture(parsing_t *p_val)
+void				ft_destroy_texture(t_parsing *p_val)
 {
 	if (p_val->n_texture.img != NULL)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->n_texture.id);
@@ -48,12 +48,12 @@ void				ft_destroy_texture(parsing_t *p_val)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->sp_texture.id);
 }
 
-void				ft_free_map_raycasting(parsing_t *p_val)
+void				ft_free_map_raycasting(t_parsing *p_val)
 {
 	int				i;
 
 	i = 0;
-	while (i < p_val->mapH)
+	while (i < p_val->maph)
 	{
 		free(p_val->map[i]);
 		i++;

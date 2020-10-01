@@ -14,27 +14,27 @@
 
 /*
 ** This file contains 3 functions mainly used for saving the bmp file.
-**  - ' ft_write_bmp(parsing_t *p_val, int fd)':    the main function, uses
+**  - ' ft_write_bmp(t_parsing *p_val, int fd)':    the main function, uses
 **  the two others and write into the file descriptor.
-**  - 'ft_bmp_header(parsing_t *p_val,
-**       bmp_file_t *bfh, bmp_image_t *bih, unsigned short *bmp_type)':
+**  - 'ft_bmp_header(t_parsing *p_val,
+**       t_bmp_file *bfh, bmp_image_t *bih, unsigned short *bmp_type)':
 **  creates the header for the bmp file.
-**  - 'ft_bmp_draw(parsing_t *p_val, bmp_image_t *bih, int fd, char *img)':
+**  - 'ft_bmp_draw(t_parsing *p_val, bmp_image_t *bih, int fd, char *img)':
 **  find the color of the pixel and write it in the file descriptor.
 */
 
-static void				ft_bmp_header(parsing_t *p_val,
-		bmp_file_t *bfh, bmp_image_t *bih, unsigned short *bmp_type)
+static void				ft_bmp_header(t_parsing *p_val,
+		t_bmp_file *bfh, t_bmp_image *bih, unsigned short *bmp_type)
 {
 	*bmp_type = 0x4d42;
 	bfh->reserved1 = 0;
 	bfh->reserved2 = 0;
-	bfh->file_size = 2 + sizeof(bmp_file_t) + sizeof(bmp_image_t) +
-		p_val->screenW * p_val->screenH * 4;
+	bfh->file_size = 2 + sizeof(t_bmp_file) + sizeof(t_bmp_image) +
+		p_val->screenw * p_val->screenh * 4;
 	bfh->offset_bits = 0x36;
-	bih->size_header = sizeof(bmp_image_t);
-	bih->width = p_val->screenW;
-	bih->height = p_val->screenH;
+	bih->size_header = sizeof(t_bmp_image);
+	bih->width = p_val->screenw;
+	bih->height = p_val->screenh;
 	bih->planes = 1;
 	bih->bpp = 32;
 	bih->compression = 0;
@@ -45,8 +45,8 @@ static void				ft_bmp_header(parsing_t *p_val,
 	bih->color_important = 0;
 }
 
-static void				ft_bmp_draw(parsing_t *p_val,
-		bmp_image_t *bih, int fd, char *img)
+static void				ft_bmp_draw(t_parsing *p_val,
+		t_bmp_image *bih, int fd, char *img)
 {
 	int					i;
 	int					y;
@@ -68,10 +68,10 @@ static void				ft_bmp_draw(parsing_t *p_val,
 	}
 }
 
-void					ft_write_bmp(parsing_t *p_val, int fd)
+void					ft_write_bmp(t_parsing *p_val, int fd)
 {
-	bmp_file_t			bfh;
-	bmp_image_t			bih;
+	t_bmp_file			bfh;
+	t_bmp_image			bih;
 	unsigned short		bmp_type;
 
 	ft_bmp_header(p_val, &bfh, &bih, &bmp_type);

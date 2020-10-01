@@ -82,14 +82,21 @@ static int              ft_refresh(parsing_t *p_val)
 
 static int                    ft_close_window(parsing_t *p_val)
 {
+    printf("Bye\n");
+    
     ft_destroy_texture(p_val);
     if (p_val->mlx_val.img_ptr != NULL)
         mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
     if (p_val->mlx_val.img_ptr2 != NULL)
         mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
     mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-    //mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
-    ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
+    //free(p_val->mlx_val.win_ptr);
+    //p_val->mlx_val.win_ptr = NULL;
+    
+    mlx_clear_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+    mlx_destroy_window(p_val->mlx_val.mlx_ptr, p_val->mlx_val.win_ptr);
+    
+    //ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
     ft_free_sprite(p_val);
     ft_free_map_raycasting(p_val);
     exit(EXIT_SUCCESS);
@@ -101,5 +108,6 @@ void                    ft_event(parsing_t *p_val)
     mlx_hook(p_val->mlx_val.win_ptr, 3, 1L << 1, ft_key_release, p_val);
 	mlx_hook(p_val->mlx_val.win_ptr, 2, 1L << 0, ft_key_press, p_val);
     mlx_hook(p_val->mlx_val.win_ptr, 17, 1L << 17, ft_close_window, p_val);
+    //mlx_hook(p_val->mlx_val.win_ptr, 17, 0, ft_close_window, p_val);
     mlx_loop_hook(p_val->mlx_val.mlx_ptr, ft_refresh, p_val);
 }

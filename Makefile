@@ -63,6 +63,7 @@ SRCS	+=	$(PARSING)check_arg.c							\
 			$(PARSING)get_map/parsing_map.c					\
 			$(PARSING)get_params/ceiling.c					\
 			$(PARSING)get_params/parsing_params.c			\
+			$(PARSING)get_params/end_parsing.c				\
 			$(PARSING)get_params/resolution.c				\
 			$(PARSING)get_params/texture.c					\
 			$(PARSING)other_fcts/free_struct.c				\

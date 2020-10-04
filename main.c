@@ -40,7 +40,6 @@ void			ft_start_parsing(char **argv, t_data *data, t_map *map)
 	change_sp_map(data);
 	ft_check_map(data);
 	ft_resolve(map, data);
-	i = 0;
 	while (i < data->map_h + 1)
 	{
 		free(map->map2[i]);
@@ -74,10 +73,7 @@ static void		ft_bmp(char **argv, t_data *data,
 	int			fd;
 
 	if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
-	{
-		printf("Cannot open the bmp file\n");
-		exit(EXIT_FAILURE);
-	}
+		ft_error_map(data, "Cannot open the bmp file\n");
 	ft_start_parsing(argv, data, map);
 	ft_init_game(data, parsing_val);
 	ft_raycasting(*parsing_val);
@@ -92,7 +88,7 @@ int				main(int argc, char **argv)
 	t_dda		dda_val;
 
 	if (argc < 2 || argc > 3)
-		quit("Need one argument or two with --save!\n");
+		ft_puterror("Need one argument or two with --save!\n");
 	else if (argc == 2)
 	{
 		ft_start_parsing(argv, &data, &map);

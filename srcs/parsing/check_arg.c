@@ -32,5 +32,6 @@ void				check_arg(char *argv)
 		}
 		i++;
 	}
-	quit("Need one argument with the extension '.cub'\n");
+	ft_puterror("Need one argument with the extension '.cub'\n");
+	exit(EXIT_FAILURE);
 }

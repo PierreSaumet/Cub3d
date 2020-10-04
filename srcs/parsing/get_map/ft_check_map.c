@@ -27,26 +27,26 @@ static void				check_f_l(t_data *data, int line)
 {
 	int					i;
 
-	i = 0;
+	i = -1;
 	if (line == 1)
 	{
-		while (i < ft_strlen(data->map[0]))
+		while (++i < ft_strlen(data->map[0]))
 		{
 			if (data->map[0][i] != '1' && data->map[0][i] != ' '
 					&& data->map[0][i] != '2')
-				quit("The map is not valid! (fl)\n");
-			i++;
+			{
+				ft_error_map(data, "The map is not valid! (fl)\n");
+			}
 		}
 	}
 	else
 	{
-		while (i < ft_strlen(data->map[data->map_h]))
+		while (++i < ft_strlen(data->map[data->map_h]))
 		{
 			if (data->map[data->map_h][i] != '1'
 					&& data->map[data->map_h][i] != ' '
 					&& data->map[data->map_h][i] != '2')
-				quit("The map is not valid! (ll)\n");
-			i++;
+				ft_error_map(data, "The map is not valid! (ll)\n");
 		}
 	}
 }
@@ -88,10 +88,10 @@ static void				check_first_c(t_data *data)
 	while (i <= data->map_h)
 	{
 		if (data->map[i][0] == '0')
-			quit("The map not valid, zero should be around by '1' (fc).\n");
+			ft_error_map(data, "0 should be around by '1' (fc).\n");
 		if (data->map[i][0] == 'N' || data->map[i][0] == 'S'
 				|| data->map[i][0] == 'E' || data->map[i][0] == 'W')
-			quit("The map not valid, charactor can't start on border (fc).\n");
+			ft_error_map(data, "Charactor can't start on border (fc).\n");
 		i++;
 	}
 }
@@ -104,23 +104,26 @@ static void				check_last_c(t_data *data)
 	while (i <= data->map_h)
 	{
 		if (data->map[i][data->map_w - 1] == '0')
-			quit("The map not valid, zero should be around by '1' (lc).\n");
+			ft_error_map(data, "0 should be around by '1' (lc).\n");
 		if (data->map[i][data->map_w - 1] == 'N'
 				|| data->map[i][data->map_w - 1] == 'S'
 				|| data->map[i][data->map_w - 1] == 'E'
 				|| data->map[i][data->map_w - 1] == 'W')
-			quit("The map not valid, charactor can't stop on border (lc).\n");
+			ft_error_map(data, "Charactor can't stop on border (lc).\n");
 		i++;
 	}
 }
 
 void					ft_check_map(t_data *data)
 {
+	int					ret;
+
+	ret = 0;
 	check_f_l(data, 1);
 	check_f_l(data, 2);
 	check_first_c(data);
 	check_last_c(data);
 	check_carac(data);
-	if (data->character != 1)
-		quit("Map: need only one character.\n");
+	if (data->character != 1 && ret == 0)
+		ft_error_map(data, "Map: need only one character.\n");
 }

@@ -50,14 +50,14 @@ void					ft_cpy_map(t_data *data, t_parsing *p_val)
 	i = 0;
 	if (!(p_val->map = (char **)malloc(sizeof(char *) * (data->map_h + 1))))
 	{
-		printf("erreur malloc tablea 1\n");
+		ft_puterror("erreur malloc tablea 1\n");
 		exit(EXIT_FAILURE);
 	}
 	while (i < data->map_h + 1)
 	{
 		if (!(p_val->map[i] = malloc(sizeof(char *) * data->map_w)))
 		{
-			printf("erreur malloc tableau 2\n");
+			ft_puterror("erreur malloc tableau 2\n");
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -94,8 +94,6 @@ static void				ft_get_position(t_data *data, t_parsing *p_val)
 		p_val->dirx = 0;
 		p_val->diry = 1;
 	}
-	else
-		quit("The character should be only NSW or E\n");
 }
 
 static int				ft_rgb(int r, int g, int b)

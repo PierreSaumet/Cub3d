@@ -72,7 +72,7 @@ void			ft_init_sprite(t_parsing *p_val)
 	if (!(p_val->ssp = (t_sprite *)malloc(sizeof(t_sprite) *
 			p_val->nsp)))
 	{
-		printf("Erreur malloc sprite\n");
+		ft_puterror("Erreur malloc sprite\n");
 		exit(EXIT_FAILURE);
 	}
 	ft_get_location_sp(p_val);

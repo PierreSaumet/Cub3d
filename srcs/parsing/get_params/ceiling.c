@@ -26,7 +26,7 @@
 **  only number, space and ','.
 */
 
-static void		check_f_or_c(t_data *data, char *line)
+static int		check_f_or_c(t_data *data, char *l, int ret)
 {
 	int			i;
 	int			j;
@@ -35,24 +35,24 @@ static void		check_f_or_c(t_data *data, char *line)
 	i = -1;
 	j = 0;
 	k = 0;
-	while (line[++i])
+	while (l[++i])
 	{
-		if (ft_isspace((int)line[i]) || ft_isdigit((int)line[i])
-				|| line[i] == ',')
+		if (ft_isspace((int)l[i]) || ft_isdigit((int)l[i])
+				|| l[i] == ',')
 		{
-			if (ft_isdigit((int)line[i]) && (line[i - 1] == ' '
-					|| line[i - 1] == ','))
+			if (ft_isdigit((int)l[i]) && (l[i - 1] == ' ' || l[i - 1] == ','))
 				j++;
-			if (line[i] == ',')
+			if (l[i] == ',')
 				k++;
 			if (j < k)
-				quit("Floor or Ceiling: first a number then ','\n");
+				ret = 1;
 		}
 		else
-			quit("Floor or Ceiling: Only numbers and ','! \n");
+			return (ft_puterror2("Floor Ceiling: numbers and ','! \n"));
 	}
 	if (j != 3 || k != 2)
-		quit("Floor or Ceiling, only 3 numbers and two ','. \n");
+		return (ft_puterror2("Floor or Ceiling, 3 numbers and 2 ','. \n"));
+	return (ret);
 }
 
 static int		get_digit_c(t_data *data, char *line, int i, int ind)
@@ -81,15 +81,16 @@ static int		get_digit_c(t_data *data, char *line, int i, int ind)
 	return (i);
 }
 
-void			get_ceilling(t_data *data, char *line)
+int				get_ceilling(t_data *data, char *line)
 {
 	int			i;
+	int			ret;
 
 	i = 0;
-	check_f_or_c(data, line);
+	ret = check_f_or_c(data, line, 0);
 	if (data->cr != -1 && data->cb != -1 && data->cg != -1)
-		quit("Ceiling already assigned\n");
-	while (line[i] && line)
+		ret = ft_puterror2("Ceiling already assigned\n");
+	while (line[i] && line && ret == 0)
 	{
 		if (line[i] == ' ' || line[i] == ',')
 			i++;
@@ -105,6 +106,7 @@ void			get_ceilling(t_data *data, char *line)
 		else
 			i++;
 	}
+	return (ft_final_check_c_f(data, ret));
 }
 
 static int		get_digit_f(t_data *data, char *line, int i, int ind)
@@ -133,15 +135,16 @@ static int		get_digit_f(t_data *data, char *line, int i, int ind)
 	return (i);
 }
 
-void			get_floor(t_data *data, char *line)
+int				get_floor(t_data *data, char *line)
 {
 	int			i;
+	int			ret;
 
 	i = 0;
-	check_f_or_c(data, line);
+	ret = check_f_or_c(data, line, 0);
 	if (data->fr != -1 && data->fb != -1 && data->fg != -1)
-		quit("Floor already assigned\n");
-	while (line[i] && line)
+		ret = ft_puterror2("Floor already assigned\n");
+	while (line[i] && line && ret == 0)
 	{
 		if (line[i] == ' ' || line[i] == ',')
 			i++;
@@ -154,5 +157,8 @@ void			get_floor(t_data *data, char *line)
 			else
 				i = get_digit_f(data, line, i, 3);
 		}
+		else
+			i++;
 	}
+	return (ft_final_check_c_f(data, ret));
 }

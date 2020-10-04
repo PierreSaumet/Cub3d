@@ -25,7 +25,7 @@ int				ft_raycasting(t_parsing pars_val)
 	x = 0;
 	if (!(z_buff = (double *)malloc(sizeof(double) * pars_val.screenw)))
 	{
-		printf("erreur du malloc de sprite\n");
+		ft_puterror("erreur du malloc de sprite\n");
 		exit(EXIT_FAILURE);
 	}
 	while (x < pars_val.screenw)

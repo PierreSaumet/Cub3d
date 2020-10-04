@@ -62,6 +62,12 @@ typedef struct		s_map
 **  quit_game.c
 */
 void				quit(char *error_msg);
+void				ft_puterror(char *str);
+int					ft_puterror2(char *str);
+
+/*
+**	check_arg.c
+*/
 void				check_arg(char *argv);
 
 /*
@@ -80,6 +86,16 @@ int					change_sp(t_data *data, int i, int j);
 **  parsing_params.c
 */
 void				parsing_param(char *argv, t_data *data);
+int					check_line(t_data *data, char *line);
+void				count_map(t_data *data, char *line);
+
+/*
+**	end_parsing.c
+*/
+int					ft_get_data_end(void);
+int					ft_ret_gnl_pars_param(int fd, int ret,
+						char *argv, t_data *data);
+int					ft_final_check_c_f(t_data *d, int ret);
 
 /*
 ** parsing_map.c
@@ -90,23 +106,23 @@ void				check_index_map(t_data *data);
 /*
 ** ceiling.c
 */
-void				get_ceilling(t_data *data, char *line);
-void				get_floor(t_data *data, char *line);
+int					get_ceilling(t_data *data, char *line);
+int					get_floor(t_data *data, char *line);
 
 /*
 ** texture.c
 */
-void				get_str(t_data *data, char *line, char c, char *pt);
+int					get_str(t_data *data, char *line, char c, char *pt);
 
 /*
 ** resolution .c
 */
-void				get_r(t_data *data, char *line);
+int					get_r(t_data *data, char *line);
 
 /*
 **  ft_object_back.c
 */
-void				find_object(t_map *map, t_data *data);
+int					find_object(t_map *map, t_data *data);
 
 /*
 ** resolve
@@ -119,7 +135,8 @@ void				cpy_tab(t_map *map, t_data *data);
 */
 void				ft_free_map(t_map *map, t_data *data);
 void				ft_free_struct(t_data *data);
-
+void				ft_free_ptr(t_data *data);
+void				ft_error_map(t_data *data, char *str);
 /*
 **  ft_check_map.c
 */

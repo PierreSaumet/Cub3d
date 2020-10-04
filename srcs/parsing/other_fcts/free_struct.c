@@ -13,12 +13,23 @@
 #include "../../headers/cub3d.h"
 
 /*
-**  This file contains 2 functions:
+**  This file contains 4 functions:
+**	- 'ft_error_map(t_data *data, char *str)':	free ptr, struc, display error
+**	and exit.
+**	- 'ft_free_map(t_map *map, t_data *data)':	free the map.
 **  - 'ft_free_struct(t_data *data)':   free all the datas from the structure
 **  called 's_data'.
 **  - 'ft_free_map(t_map *map, t_data *data)':  free the map from the structure
 **  called 's_map'.
 */
+
+void			ft_error_map(t_data *data, char *str)
+{
+	ft_free_ptr(data);
+	ft_free_struct(data);
+	ft_puterror(str);
+	exit(EXIT_FAILURE);
+}
 
 void			ft_free_map(t_map *map, t_data *data)
 {
@@ -51,4 +62,18 @@ void			ft_free_struct(t_data *data)
 	free(data->pt_we);
 	free(data->pt_ea);
 	free(data->pt_sp);
+}
+
+void			ft_free_ptr(t_data *data)
+{
+	free(data->pt_no);
+	data->pt_no = NULL;
+	free(data->pt_so);
+	data->pt_so = NULL;
+	free(data->pt_ea);
+	data->pt_ea = NULL;
+	free(data->pt_we);
+	data->pt_we = NULL;
+	free(data->pt_sp);
+	data->pt_sp = NULL;
 }

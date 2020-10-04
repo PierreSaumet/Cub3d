@@ -24,63 +24,76 @@
 **  to the letter.
 */
 
-void				get_data(t_data *data, char *line)
+static int			get_data(t_data *data, char *line)
 {
+	int				ret;
+
+	ret = 0;
 	data->nb_data++;
 	if (line[0] == 'R' && line[1] == ' ')
-		get_r(data, &line[2]);
+		ret = get_r(data, &line[2]);
 	else if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		get_str(data, &line[3], line[0], data->pt_no);
+		ret = get_str(data, &line[3], line[0], data->pt_no);
 	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		get_str(data, &line[3], line[1], data->pt_so);
+		ret = get_str(data, &line[3], line[1], data->pt_so);
 	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		get_str(data, &line[3], line[0], data->pt_we);
+		ret = get_str(data, &line[3], line[0], data->pt_we);
 	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		get_str(data, &line[3], line[0], data->pt_ea);
+		ret = get_str(data, &line[3], line[0], data->pt_ea);
 	else if (line[0] == 'S' && line[1] == ' ')
-		get_str(data, &line[2], line[0], data->pt_sp);
+		ret = get_str(data, &line[2], line[0], data->pt_sp);
 	else if (line[0] == 'F' && line[1] == ' ')
-		get_floor(data, &line[2]);
+		ret = get_floor(data, &line[2]);
 	else if (line[0] == 'C' && line[1] == ' ')
-		get_ceilling(data, &line[2]);
+		ret = get_ceilling(data, &line[2]);
 	else
-		quit("There is something wrong with the datas... \n");
+		ret = ft_get_data_end();
+	return (ret);
 }
 
-static int			check_letter(char c)
+static int			check_letter(char c, t_data *data)
 {
 	if (c == 'R' || c == 'N' || c == 'W' || c == 'E' || c == 'S'
 			|| c == 'F' || c == 'C')
 		return (0);
 	else if (c == '\n' || c == '\t' || c == '\0')
-		return (1);
+		return (0);
 	else
 	{
-		quit("The cub file contains an or maany errors!\n");
-		return (2);
+		if (data->nb_data < 8)
+		{
+			ft_puterror("The cub file contains one or many errors!\n");
+			return (1);
+		}
+		else
+			return (0);
 	}
 }
 
-static void			check_line(t_data *data, char *line)
+int					check_line(t_data *data, char *line)
 {
 	int				i;
+	int				ret;
 
 	i = 0;
+	ret = 0;
 	if (data->nb_data < 8)
 	{
 		while (line[i] == ' ')
 			i++;
-		if (line[i] && check_letter(line[i]) == 0)
+		ret = check_letter(line[i], data);
+		if (line[i] && ret == 0)
 		{
-			get_data(data, &line[i]);
+			ret = get_data(data, &line[i]);
 			data->param_h++;
 		}
 		else
 			data->param_h++;
 	}
+	return (ret);
 }
 
-static void			count_map(t_data *data, char *line)
+void				count_map(t_data *data, char *line)
 {
 	data->map_w = (data->map_w < ft_strlen(line)
 		? ft_strlen(line) : data->map_w);
@@ -94,26 +107,21 @@ void				parsing_param(char *argv, t_data *data)
 {
 	int				fd;
 	char			*line;
+	int				ret;
 
 	fd = open(argv, O_RDONLY);
-	while (get_next_line(fd, &line))
+	ret = 0;
+	if (fd >= 3)
+		ret = ft_ret_gnl_pars_param(fd, 0, argv, data);
+	else
 	{
-		data->tt_line++;
-		if (data->nb_data < 8)
-		{
-			check_line(data, line);
-			free(line);
-		}
-		else
-			count_map(data, line);
+		ret = 1;
+		ft_puterror("The map.cub doesn't exist!\n");
 	}
-	data->tt_line++;
-	if (!(line[0]))
-		data->tt_empty++;
-	data->map_w = (data->map_w < ft_strlen(line)
-			? ft_strlen(line) : data->map_w);
-	check_line(data, line);
-	free(line);
 	close(fd);
-	data->map_h = data->map_h - data->tt_empty;
+	if (ret == 1)
+	{
+		ft_free_ptr(data);
+		exit(EXIT_FAILURE);
+	}
 }

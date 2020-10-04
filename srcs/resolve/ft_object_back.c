@@ -45,7 +45,7 @@ static int		find_path(int x, int y, t_map *map, t_data *data)
 	return (0);
 }
 
-void			find_object(t_map *map, t_data *data)
+int				find_object(t_map *map, t_data *data)
 {
 	int			i;
 	int			j;
@@ -64,7 +64,7 @@ void			find_object(t_map *map, t_data *data)
 				{
 					if (i == 0 || i == data->map_h || j == 0
 							|| j == data->map_w - 1)
-						quit("ERREUR, le personnage peut sortir\n");
+						return (1);
 					cpy_tab(map, data);
 				}
 				else

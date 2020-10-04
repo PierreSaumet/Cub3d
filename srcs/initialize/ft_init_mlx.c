@@ -27,9 +27,9 @@ static void				ft_check_size_screen(t_parsing *p_val)
 	int					h;
 
 	mlx_get_screen_size(p_val->mlx_val.mlx_ptr, &w, &h);
-	if (p_val->screenh > h)
+	if (p_val->screenh > h || p_val->screenh < 0)
 		p_val->screenh = h;
-	if (p_val->screenw > w)
+	if (p_val->screenw > w || p_val->screenw < 0)
 		p_val->screenw = w;
 }
 

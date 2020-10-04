@@ -21,22 +21,24 @@
 **  texture's pointer.
 */
 
-static void		ft_set_txt(t_parsing *p_val, t_texture *t, char *src)
+static int		ft_set_txt(t_parsing *p_val, t_texture *t, char *src)
 {
 	int			i[3];
 
 	if (t->id)
 	{
-		printf("texture deja Ok -%s-\n", src);
-		exit(EXIT_FAILURE);
+		ft_puterror("texture deja Ok -%s-\n");
+		return (1);
 	}
 	t->id = mlx_xpm_file_to_image(p_val->mlx_val.mlx_ptr,
 			src, &(t->w), &(t->h));
 	if (t->id == NULL)
 	{
-		printf("erreur ne peut pas ouvrir la texture\n");
+		ft_puterror("erreur ne peut pas ouvrir la texture\n");
+		return (1);
 	}
 	t->img = (int *)mlx_get_data_addr(t->id, &i[0], &i[1], &i[2]);
+	return (0);
 }
 
 static void		ft_init_t(t_parsing *p_val)
@@ -65,6 +67,8 @@ static void		ft_init_t(t_parsing *p_val)
 
 void			ft_init_texture(t_parsing *pars_val, t_data *data)
 {
+	int			ret;
+
 	ft_init_t(pars_val);
 	ft_set_txt(pars_val, &(pars_val->n_texture), data->pt_no);
 	free(data->pt_no);

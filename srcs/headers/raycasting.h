@@ -18,8 +18,8 @@
 /*
 **  Global variables used for the raycasting
 */
-# define MOVESPEED 0.010
-# define ROTSPEED 0.005
+# define MOVESPEED 0.022
+# define ROTSPEED 0.008
 # define NORTH 1
 # define SOUTH 2
 # define EAST 3

@@ -1,0 +1,20 @@
+   
+   R       800                 600     
+NO     ./srcs/textures/wall1.xpm          
+      SO ./srcs/textures/wall2.xpm   
+
+  F   255,   255  ,     9  
+
+
+WE ./srcs/textures/wall3.xpm
+EA                                    ./srcs/textures/wall4.xpm
+
+S ./srcs/textures/barrel.xpm
+C 225,               131,      30 
+  
+
+1111111111111111111111111111
+1                           1
+1000000000000000000000000000000001
+1111111111111111N              211
+1111111111111111111111111111111111

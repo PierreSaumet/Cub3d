@@ -47,11 +47,11 @@ static void		ft_malloc_tab(t_map *map, t_data *data)
 
 	i = 0;
 	if (!(map->map2 = (char **)malloc(sizeof(char *) * (data->map_h + 1))))
-		quit("Can not malloc the second map!\n");
+		ft_error_map(data, "Can not malloc the second map!\n");
 	while (i < data->map_h + 1)
 	{
 		if (!(map->map2[i] = malloc(sizeof(char *) * data->map_w)))
-			quit("Can not malloc the second map!\n");
+			ft_error_map(data, "Can not malloc the second map!\n");
 		i++;
 	}
 }
@@ -82,8 +82,16 @@ static void		ft_find_carac(t_map *map, t_data *data)
 
 void			ft_resolve(t_map *map, t_data *data)
 {
+	int			ret;
+
+	ret = 0;
 	ft_malloc_tab(map, data);
 	cpy_tab(map, data);
 	ft_find_carac(map, data);
-	find_object(map, data);
+	ret = find_object(map, data);
+	if (ret == 1)
+	{
+		ft_free_map(map, data);
+		ft_error_map(data, "le personnage peut sortir\n");
+	}
 }

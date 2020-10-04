@@ -20,7 +20,7 @@
 **  composed with letters.
 */
 
-static void			check_r_line(t_data *data, char *line)
+static int			check_r_line(t_data *data, char *line)
 {
 	int				i;
 	int				j;
@@ -28,7 +28,7 @@ static void			check_r_line(t_data *data, char *line)
 	i = 0;
 	j = 0;
 	if (data->rx != 0 && data->ry != 0)
-		quit("Resolution has already been assigned!\n");
+		ft_error_map(data, "Resolution has already been assigned!\n");
 	while (line[i])
 	{
 		if (ft_isspace((int)line[i]) == 1
@@ -39,22 +39,57 @@ static void			check_r_line(t_data *data, char *line)
 			i++;
 		}
 		else
-			quit("Resolution: There should be only number...\n");
+			return (ft_puterror2("Reso: There should be only number...\n"));
 	}
 	if (j > 2)
-		quit("Resolution : There sould be only 2 numbers! \n");
+	{
+		ft_puterror("Reso : There sould be only 2 numbers! \n");
+		return (1);
+	}
 }
 
-void				get_r(t_data *data, char *line)
+int					ft_final_check_r(t_data *data)
+{
+	if (data->rx > 2147483647)
+		data->rx = 2147483647;
+	if (data->rx < 0)
+		data->rx = 2147483647;
+	if (data->ry > 2147483647)
+		data->ry = 2147483647;
+	if (data->ry < 0)
+		data->ry = 2147483647;
+	if (data->rx < 0 || data->ry < 0)
+	{
+		ft_puterror("Resolution should be positive!\n");
+		return (1);
+	}
+	else if (data->rx == 0 || data->ry == 0)
+	{
+		ft_puterror("Resolution should not be equal to 0!\n");
+		return (1);
+	}
+	return (0);
+}
+
+int					get_r(t_data *data, char *line)
 {
 	int				i;
+	int				ret;
 
 	i = 0;
-	check_r_line(data, line);
+	if (data->rx != 0 || data->ry != 0)
+	{
+		ft_puterror("Resolution already assigned\n");
+		return (1);
+	}
+	ret = check_r_line(data, line);
 	data->rx = ft_atoi(line);
 	while (ft_isspace((int)line[i]) == 1)
 		i++;
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
 	data->ry = ft_atoi(&line[i]);
+	if (ret == 0)
+		ret = ft_final_check_r(data);
+	return (ret);
 }

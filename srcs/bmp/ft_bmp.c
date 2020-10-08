@@ -24,14 +24,41 @@
 **  find the color of the pixel and write it in the file descriptor.
 */
 
+int						ft_bmp_start(char **argv, t_data *data,
+		t_parsing *p_val, t_map *map)
+{
+	if (argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
+				&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e'
+				&& argv[2][6] == '\0')
+	{
+		if (ft_check_empty(argv) == 0)
+		{
+			ft_bmp(argv, data, p_val, map);
+			
+			ft_destroy_texture(p_val);
+			printf("LA\n");
+			ft_bmp_exit(*p_val);
+			printf("LA\n");
+			ft_free_sprite(p_val);
+			ft_free_map_raycasting(p_val);
+		}
+		return (0);
+	}
+	else
+	{
+		ft_puterror("Second argument = --save\n");
+		return (1);
+	}
+}
+
 void					ft_bmp_exit(t_parsing p_val)
 {
 	if (p_val.mlx_val.img_ptr != NULL)
 		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr);
 	if (p_val.mlx_val.img_ptr2 != NULL)
 		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr2);
-	mlx_clear_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
-	mlx_destroy_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
+	//mlx_clear_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
+	//mlx_destroy_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
 	ft_free_mlx_ptr(p_val.mlx_val.mlx_ptr);
 }
 
@@ -58,7 +85,7 @@ static void				ft_bmp_header(t_parsing *p_val,
 }
 
 static void				ft_bmp_draw(t_parsing *p_val,
-		t_bmp_image *bih, int fd, char *img)
+		t_bmp_image *bih, int fd)
 {
 	int					i;
 	int					y;
@@ -90,5 +117,5 @@ void					ft_write_bmp(t_parsing *p_val, int fd)
 	write(fd, &bmp_type, sizeof(bmp_type));
 	write(fd, &bfh, sizeof(bfh));
 	write(fd, &bih, sizeof(bih));
-	ft_bmp_draw(p_val, &bih, fd, p_val->mlx_val.img_data);
+	ft_bmp_draw(p_val, &bih, fd);
 }

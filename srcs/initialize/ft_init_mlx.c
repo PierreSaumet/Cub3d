@@ -33,15 +33,16 @@ static void				ft_check_size_screen(t_parsing *p_val)
 		p_val->screenw = w;
 }
 
-static void				ft_init_mlx(t_parsing *p_val)
+static void				ft_init_mlx(t_parsing *p_val, int i)
 {
 	if ((p_val->mlx_val.mlx_ptr = mlx_init()) == NULL)
 		exit(EXIT_FAILURE);
 	ft_check_size_screen(p_val);
-	if ((p_val->mlx_val.win_ptr = mlx_new_window(p_val->mlx_val.mlx_ptr,
-			p_val->screenw, p_val->screenh,
-			"Cub3D")) == NULL)
-		exit(EXIT_FAILURE);
+	if (i == 0)
+		if ((p_val->mlx_val.win_ptr = mlx_new_window(p_val->mlx_val.mlx_ptr,
+				p_val->screenw, p_val->screenh,
+				"Cub3D")) == NULL)
+			exit(EXIT_FAILURE);
 	if ((p_val->mlx_val.img_ptr = mlx_new_image(p_val->mlx_val.mlx_ptr,
 			p_val->screenw, p_val->screenh)) == NULL)
 		exit(EXIT_FAILURE);
@@ -59,9 +60,9 @@ static void				ft_init_mlx(t_parsing *p_val)
 		exit(EXIT_FAILURE);
 }
 
-void					ft_init_structure(t_parsing *p_st)
+void					ft_init_structure(t_parsing *p_st, int i)
 {
 	ft_init_dda(&p_st->dda);
 	ft_init_mvt(p_st);
-	ft_init_mlx(p_st);
+	ft_init_mlx(p_st, i);
 }

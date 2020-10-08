@@ -58,26 +58,29 @@ void			ft_start_game(t_parsing parsing_val)
 	mlx_loop(parsing_val.mlx_val.mlx_ptr);
 }
 
-void			ft_init_game(t_data *data, t_parsing *parsing_val)
+void			ft_init_game(t_data *data, t_parsing *parsing_val, int i)
 {
 	ft_cpy_structure(data, parsing_val);
-	ft_init_structure(parsing_val);
+	ft_init_structure(parsing_val, i);
 	ft_init_texture(parsing_val, data);
 	ft_cpy_map(data, parsing_val);
 	ft_init_sprite(parsing_val);
 }
 
-static void		ft_bmp(char **argv, t_data *data,
+void			ft_bmp(char **argv, t_data *data,
 		t_parsing *parsing_val, t_map *map)
 {
 	int			fd;
 
+	/*if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
+		ft_error_map(data, "Cannot open the bmp file\n");*/
+	ft_start_parsing(argv, data, map);
+	ft_init_game(data, parsing_val, 1);
+	ft_raycasting(*parsing_val);
 	if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
 		ft_error_map(data, "Cannot open the bmp file\n");
-	ft_start_parsing(argv, data, map);
-	ft_init_game(data, parsing_val);
-	ft_raycasting(*parsing_val);
 	ft_write_bmp(parsing_val, fd);
+	
 }
 
 int				main(int argc, char **argv)
@@ -85,25 +88,20 @@ int				main(int argc, char **argv)
 	t_data		data;
 	t_map		map;
 	t_parsing	p_val;
-	t_dda		dda_val;
 
 	if (argc < 2 || argc > 3)
-		ft_puterror("Need one argument or two with --save!\n");
+		ft_puterror2("Need one argument or two with --save!\n");
 	else if (argc == 2)
 	{
-		ft_start_parsing(argv, &data, &map);
-		ft_init_game(&data, &p_val);
-		ft_start_game(p_val);
+		if (ft_check_empty(argv) == 0)
+		{
+			ft_start_parsing(argv, &data, &map);
+			
+			ft_init_game(&data, &p_val, 0);
+			ft_start_game(p_val);
+		}
 	}
 	else if (argc == 3)
-	{
-		if (argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
-				&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e')
-			ft_bmp(argv, &data, &p_val, &map);
-		ft_destroy_texture(&p_val);
-		ft_bmp_exit(p_val);
-		ft_free_sprite(&p_val);
-		ft_free_map_raycasting(&p_val);
-	}
+		return (ft_bmp_start(argv, &data, &p_val, &map));
 	return (0);
 }

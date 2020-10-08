@@ -40,4 +40,10 @@
 */
 # include "../../minilibx-linux/mlx.h"
 # include "../../minilibx-linux/mlx_int.h"
+
+/*
+**  main.c
+*/
+void			ft_bmp(char **argv, t_data *data,
+					t_parsing *parsing_val, t_map *map);
 #endif

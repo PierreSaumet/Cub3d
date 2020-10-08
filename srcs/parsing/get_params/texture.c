@@ -96,7 +96,7 @@ static int			ft_copy(char *dest, char *src)
 	if (fd < 3)
 	{
 		close(fd);
-		ft_puterror("erreur ne peut pas ouvrir la texture\n");
+		ft_puterror("1) erreur ne peut pas ouvrir la texture\n");
 		return (1);
 	}
 	return (0);

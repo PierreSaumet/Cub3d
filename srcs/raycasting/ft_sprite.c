@@ -53,7 +53,6 @@ void			ft_init_sprite(t_parsing *p_val)
 {
 	int			i;
 	int			j;
-	int			x;
 
 	i = 0;
 	j = 0;

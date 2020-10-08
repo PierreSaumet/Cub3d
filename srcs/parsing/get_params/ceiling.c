@@ -26,7 +26,7 @@
 **  only number, space and ','.
 */
 
-static int		check_f_or_c(t_data *data, char *l, int ret)
+static int		check_f_or_c(char *l, int ret)
 {
 	int			i;
 	int			j;
@@ -44,8 +44,8 @@ static int		check_f_or_c(t_data *data, char *l, int ret)
 				j++;
 			if (l[i] == ',')
 				k++;
-			if (j < k)
-				ret = 1;
+			if (j < k || (j == k + 2))
+				return (ft_puterror2("',' and numbers are display wrong \n"));
 		}
 		else
 			return (ft_puterror2("Floor Ceiling: numbers and ','! \n"));
@@ -87,7 +87,7 @@ int				get_ceilling(t_data *data, char *line)
 	int			ret;
 
 	i = 0;
-	ret = check_f_or_c(data, line, 0);
+	ret = check_f_or_c(line, 0);
 	if (data->cr != -1 && data->cb != -1 && data->cg != -1)
 		ret = ft_puterror2("Ceiling already assigned\n");
 	while (line[i] && line && ret == 0)
@@ -141,7 +141,7 @@ int				get_floor(t_data *data, char *line)
 	int			ret;
 
 	i = 0;
-	ret = check_f_or_c(data, line, 0);
+	ret = check_f_or_c(line, 0);
 	if (data->fr != -1 && data->fb != -1 && data->fg != -1)
 		ret = ft_puterror2("Floor already assigned\n");
 	while (line[i] && line && ret == 0)

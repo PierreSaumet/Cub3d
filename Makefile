@@ -87,7 +87,7 @@ SRCS	+=	$(GNL)get_next_line_utils.c						\
 
 ################################### HEADERS ##################################
 
-HEADER	=	$(HDS)cub3d.h									\
+HEADER	+=	$(HDS)cub3d.h									\
 			$(HDS)raycasting.h								\
 			$(HDS)parsing.h									\
 			$(HDS)bmp.h										\
@@ -98,19 +98,19 @@ HEADER	=	$(HDS)cub3d.h									\
 ################################# VARIABLES ##################################
 
 CC		=	gcc
-CFLAGS	=	-WALL -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 OBJS	=	$(SRCS:.c=.o)
 MLX		=	minilibx-linux/libmlx.a
-
+INC		=	srcs/headers/
 ################################### RULES ####################################
 
 all: compmlx $(NAME)
 
 $(OBJS): %.o: %.c $(HEADER)
-		$(CC) -c $< -o $@ -g
+		$(CC) $(CFLAGS) -I $(INC) -c $< -o $@ -g
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(MLX) -lm -lXext -lX11 -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(MLX) -lm -lXext -lX11 -o $@
 
 compmlx:
 	$(MAKE) -C minilibx-linux all

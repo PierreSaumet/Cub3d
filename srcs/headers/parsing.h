@@ -64,6 +64,7 @@ typedef struct		s_map
 void				quit(char *error_msg);
 void				ft_puterror(char *str);
 int					ft_puterror2(char *str);
+int					ft_check_empty(char **argv);
 
 /*
 **	check_arg.c
@@ -94,7 +95,7 @@ void				count_map(t_data *data, char *line);
 */
 int					ft_get_data_end(void);
 int					ft_ret_gnl_pars_param(int fd, int ret,
-						char *argv, t_data *data);
+						t_data *data);
 int					ft_final_check_c_f(t_data *d, int ret);
 
 /*

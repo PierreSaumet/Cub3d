@@ -106,13 +106,12 @@ void				count_map(t_data *data, char *line)
 void				parsing_param(char *argv, t_data *data)
 {
 	int				fd;
-	char			*line;
 	int				ret;
 
 	fd = open(argv, O_RDONLY);
 	ret = 0;
 	if (fd >= 3)
-		ret = ft_ret_gnl_pars_param(fd, 0, argv, data);
+		ret = ft_ret_gnl_pars_param(fd, 0, data);
 	else
 	{
 		ret = 1;
@@ -124,4 +123,6 @@ void				parsing_param(char *argv, t_data *data)
 		ft_free_ptr(data);
 		exit(EXIT_FAILURE);
 	}
+	if (ret == 2)
+		exit(EXIT_FAILURE);
 }

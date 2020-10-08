@@ -32,7 +32,7 @@ static int			ft_end_parsing(t_data *data, char *line, int ret)
 }
 
 int					ft_ret_gnl_pars_param(int fd, int ret,
-		char *argv, t_data *data)
+		t_data *data)
 {
 	char			*line;
 
@@ -40,6 +40,8 @@ int					ft_ret_gnl_pars_param(int fd, int ret,
 	{
 		if (ret == 0)
 		{
+			if (!line)
+				return (2);
 			data->tt_line++;
 			if (data->nb_data < 8)
 			{

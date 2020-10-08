@@ -45,31 +45,42 @@ static int		find_path(int x, int y, t_map *map, t_data *data)
 	return (0);
 }
 
+static int		get_pos(t_map *map, t_data *data, int i, int j)
+{
+	if (map->map2[i][j] == '2')
+	{
+		map->y_ob = i;
+		map->x_ob = j;
+		if (find_path(map->x_c, map->y_c, map, data) == 1)
+		{
+			if (i == 0 || i == data->map_h || j == 0
+					|| j == data->map_w - 1)
+				return (1);
+			cpy_tab(map, data);
+		}
+		else
+			cpy_tab(map, data);
+	}
+	return (0);
+}
+
 int				find_object(t_map *map, t_data *data)
 {
 	int			i;
 	int			j;
+	int			ret;
 
 	i = -1;
+	ret = 0;
 	while (++i < data->map_h + 1)
 	{
 		j = -1;
 		while (++j < data->map_w + 1)
 		{
-			if (map->map2[i][j] == '2')
-			{
-				map->y_ob = i;
-				map->x_ob = j;
-				if (find_path(map->x_c, map->y_c, map, data) == 1)
-				{
-					if (i == 0 || i == data->map_h || j == 0
-							|| j == data->map_w - 1)
-						return (1);
-					cpy_tab(map, data);
-				}
-				else
-					cpy_tab(map, data);
-			}
+			ret = get_pos(map, data, i, j);
+			if (ret == 1)
+				return (1);
 		}
 	}
+	return (0);
 }

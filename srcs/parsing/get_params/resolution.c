@@ -42,10 +42,8 @@ static int			check_r_line(t_data *data, char *line)
 			return (ft_puterror2("Reso: There should be only number...\n"));
 	}
 	if (j > 2)
-	{
-		ft_puterror("Reso : There sould be only 2 numbers! \n");
-		return (1);
-	}
+		return (ft_puterror2("Reso : There sould be only 2 numbers! \n"));
+	return (0);
 }
 
 int					ft_final_check_r(t_data *data)

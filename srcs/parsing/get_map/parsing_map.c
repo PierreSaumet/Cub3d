@@ -20,11 +20,11 @@
 **  memory then copy the buffer into the char **map2.
 **  - 'check_index_map(t_data *data)':      check if the map contains only
 **  the right characters by calling the function ft_index.
-**  - 'ft_index(t_data *data, char c):      check if 'c' is into the list of
+**  - 'ft_index(char c):      check if 'c' is into the list of
 **  authorized characters.
 */
 
-static int			ft_index(t_data *data, char c)
+static int			ft_index(char c)
 {
 	char			*index;
 	int				i;
@@ -53,7 +53,7 @@ void				check_index_map(t_data *data)
 		j = 0;
 		while (j < ft_strlen(data->map[i]))
 		{
-			if (ft_index(data, data->map[i][j]) == 0)
+			if (ft_index(data->map[i][j]) == 0)
 			{
 				ft_free_ptr(data);
 				ft_free_struct(data);
@@ -105,6 +105,7 @@ void				get_map(char *argv, t_data *data)
 	char			*buff;
 
 	fd = open(argv, O_RDONLY);
+	buff = NULL;
 	if (fd < 3)
 		ft_error_map(data, "Can not open the configuration file  (2)\n");
 	if (!(data->map = (char **)malloc(sizeof(char *) * (data->map_h + 1))))

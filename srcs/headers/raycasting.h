@@ -162,7 +162,7 @@ int						ft_raycasting(t_parsing pars_val);
 /*
 ** ft_init_mlx.c
 */
-void					ft_init_structure(t_parsing *p_st);
+void					ft_init_structure(t_parsing *p_st, int i);
 
 /*
 **  ft_init_parsingstruct.c
@@ -238,6 +238,8 @@ void					ft_draw_wall(t_parsing *p_val, t_texture text,
 */
 void					ft_write_bmp(t_parsing *p_val, int fd);
 void					ft_bmp_exit(t_parsing p_val);
+int						ft_bmp_start(char **argv, t_data *data,
+							t_parsing *p_val, t_map *map);
 
 /*
 **  ft_free_structure.c

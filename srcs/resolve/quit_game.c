@@ -21,9 +21,6 @@
 
 void			ft_puterror(char *str)
 {
-	int			i;
-
-	i = 0;
 	if (!str)
 		return ;
 	write(1, "ERROR !\n\t", 9);
@@ -32,9 +29,6 @@ void			ft_puterror(char *str)
 
 int				ft_puterror2(char *str)
 {
-	int			i;
-
-	i = 0;
 	if (!str)
 		return (1);
 	write(1, "ERROR !\n\t", 9);
@@ -47,4 +41,42 @@ void			quit(char *error_msg)
 	if (error_msg)
 		ft_puterror(error_msg);
 	exit(EXIT_FAILURE);
+}
+
+int				ft_strcmp(char *dst, char *src)
+{
+	int			i;
+
+	i = 0;
+	while (dst[i] != '\0' && src[i] != '\0')
+	{
+		if (dst[i] == src[i])
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int				ft_check_empty(char **argv)
+{
+	int			fd;
+	int			ret;
+	char		*buf;
+	int			count;
+
+	fd = open(argv[1], O_RDONLY);
+	buf = NULL;
+	ret = 0;
+	count = 0;
+	while ((ret = get_next_line(fd, &buf)) >= 1)
+	{
+		free(buf);
+		count++;
+	}
+	free(buf);
+	buf = NULL;
+	if (count == 0)
+		return (ft_puterror2("The file is empty\n"));
+	return (0);
 }

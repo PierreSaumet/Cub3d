@@ -12,6 +12,36 @@
 
 #include "../../headers/cub3d.h"
 
+/*
+**	This file contains 5 functions:
+**	- ft_exit(t_data *data):	free everything if the map is not correct.
+**	- ft_get_data_end(void):	print an error message.
+**	- 'ft_end_parsing(t_data *data, char *line, int ret)': final check of
+**	the map.
+**	- 'ft_ret_gnl_pars_param(int fd, int ret, t_data *data)':	get
+**	the datas
+**	- 'ft_final_check_c_f(t_data *d, int ret)': check the ceiling and floor.
+*/
+
+void				ft_exit(t_data *data)
+{
+	int				i;
+
+	i = 0;
+	while (i < data->map_h + 1)
+	{
+		free(data->map[i]);
+		i++;
+	}
+	free(data->map);
+	free(data->pt_no);
+	free(data->pt_so);
+	free(data->pt_ea);
+	free(data->pt_we);
+	free(data->pt_sp);
+	exit(EXIT_FAILURE);
+}
+
 int					ft_get_data_end(void)
 {
 	ft_puterror("There is something wrong with the datas... \n");
@@ -61,27 +91,27 @@ int					ft_ret_gnl_pars_param(int fd, int ret,
 	return (ret);
 }
 
-int					ft_final_check_c_f(t_data *d, int ret)
+int					ft_final_check_c_f(t_data *d, int ret, int i)
 {
-	if (ret == 0)
+	if (i == 1 && ret == 0)
 	{
-		if ((d->cr < 0 || d->cr > 255) && (d->fr < 0 || d->fr > 255))
-		{
-			ft_puterror("1) RGB ceiling or floor is wrong. 0 / 255\n");
-			return (1);
-		}
-		if ((d->cb < 0 || d->cb > 255) && (d->fb < 0 || d->fb > 255))
-		{
-			ft_puterror("2) RGB ceiling or floor is wrong. 0 / 255\n");
-			return (1);
-		}
-		if ((d->cg < 0 || d->cg > 255) && (d->fg < 0 || d->fg > 255))
-		{
-			ft_puterror("3) RGB ceiling or floor is wrong. 0 / 255\n");
-			return (1);
-		}
+		if (d->fr < 0 || d->fr > 255)
+			return (ft_puterror2("1) RGB floor is wrong. 0 / 255\n"));
+		if (d->fg < 0 || d->fg > 255)
+			return (ft_puterror2("2) RGB floor is wrong. 0 / 255\n"));
+		if (d->fb < 0 || d->fb > 255)
+			return (ft_puterror2("3) RGB floor is wrong. 0 / 255\n"));
 		return (0);
 	}
-	else
-		return (ret);
+	if (i == 2 && ret == 0)
+	{
+		if (d->cr < 0 || d->cr > 255)
+			return (ft_puterror2("1) RGB ceiling is wrong. 0 / 255\n"));
+		if (d->cg < 0 || d->cg > 255)
+			return (ft_puterror2("2) RGB ceiling is wrong. 0 / 255\n"));
+		if (d->cb < 0 || d->cb > 255)
+			return (ft_puterror2("3) RGB ceiling is wrong. 0 / 255\n"));
+		return (0);
+	}
+	return (ret);
 }

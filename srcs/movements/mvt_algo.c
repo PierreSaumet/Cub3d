@@ -86,13 +86,10 @@ static int			ft_close_window(t_parsing *p_val)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
 	if (p_val->mlx_val.img_ptr2 != NULL)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
-	free(p_val->mlx_val.win_ptr);
-	p_val->mlx_val.win_ptr = NULL;
 	ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
 	ft_free_sprite(p_val);
 	ft_free_map_raycasting(p_val);
 	exit(EXIT_SUCCESS);
-	return (0);
 }
 
 void				ft_event(t_parsing *p_val)

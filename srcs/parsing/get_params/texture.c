@@ -99,7 +99,7 @@ static int			ft_copy(char *dest, char *src)
 		ft_puterror("1) erreur ne peut pas ouvrir la texture\n");
 		return (1);
 	}
-	return (0);
+	return (ft_dot(dest));
 }
 
 int					get_str(t_data *data, char *line, char c, char *pt)

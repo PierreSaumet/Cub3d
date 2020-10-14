@@ -10,7 +10,7 @@
 #                                                                            #
 # ************************************************************************** #
 
-NAME	=	Cub3D
+NAME	=	cub3D
 
 ##################################### PATH ###################################
 
@@ -69,7 +69,8 @@ SRCS	+=	$(PARSING)check_arg.c							\
 			$(PARSING)other_fcts/free_struct.c				\
 			$(RESOLVE)quit_game.c							\
 			$(RESOLVE)ft_resolve.c							\
-			$(RESOLVE)ft_object_back.c						
+			$(RESOLVE)ft_object_back.c						\
+			$(PARSING)get_map/ft_end.c
 
 #--------------LIBFT--------------#
 SRCS	+=	$(LIBFT)ft_atoi.c								\

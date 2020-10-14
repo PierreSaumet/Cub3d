@@ -13,23 +13,25 @@
 #include "../../headers/cub3d.h"
 
 /*
-**	This file contains 2 functions:
+**	This file contains 5 functions:
 **  - 'change_sp_map(t_data *data)':    browse the buffer and call change_sp.
 **  - 'change_sp(t_data *data, int i, int j)':  change the space character
-**  into a '1' etc.
+**  into a '9' etc.
+**	- 'ft_nines(t_data *d)':	checks if there is a 0 and after him a 9, if
+**	yes return 1 == ERROR.
+**	- 'ft_nine(t_data *d)':		checks if there is a 0 and before him a 9, if
+**	yes return 1 == ERROR.
+**	- 'ft_replace(t_data *d)':	replace 9 by 1 if everything is okay.
 */
 
-int					change_sp(t_data *data, int i, int j)
+static int			change_sp(t_data *data, int i, int j)
 {
-	printf("data->map[i][j] == %c\n", data->map[i][j]);
 	if (data->map[i][j] == ' ')
 		data->map[i][j] = '1';
 	else if (data->map[i][j] == '\n')
 		data->map[i][j] = '1';
 	else if (data->map[i][j] == '\0')
 	{
-		printf("la\n");
-		
 		data->map[i][j] = '9';
 		while (j < data->map_w)
 		{
@@ -44,25 +46,28 @@ int					change_sp(t_data *data, int i, int j)
 	return (j);
 }
 
-int				ft_nines(t_data *d)
+int					ft_nines(t_data *d)
 {
 	int				i;
 	int				j;
+	char			*x;
 
 	i = d->map_h;
 	j = 0;
+	x = "NSWE";
 	while (i >= 0)
 	{
 		j = 0;
 		while (j < d->map_w)
 		{
-			//printf("i+1=%d et h=%d\n", i+1, d->map_h);
 			if (d->map[i][j] == '0'
-					&& (i + 1 < d->map_h)
+					&& (i + 1 <= d->map_h)
 					&& d->map[i + 1][j] == '9')
-			{
 				return (ft_puterror2("Map not close\n"));
-			}
+			if ((d->map[i][j] == x[0] || d->map[i][j] == x[1]
+					|| d->map[i][j] == x[2] || d->map[i][j] == x[3])
+					&& (i + 1 <= d->map_h) && d->map[i + 1][j] == '9')
+				return (ft_puterror2("Charac is on border\n"));
 			j++;
 		}
 		i--;
@@ -70,13 +75,15 @@ int				ft_nines(t_data *d)
 	return (0);
 }
 
-int				ft_nine(t_data *d)
+int					ft_nine(t_data *d)
 {
 	int				i;
 	int				j;
+	char			*x;
 
 	i = 1;
 	j = 0;
+	x = "NSWE";
 	while (i < d->map_h + 1)
 	{
 		j = 0;
@@ -84,9 +91,11 @@ int				ft_nine(t_data *d)
 		{
 			if (d->map[i][j] == '0'
 					&& d->map[i - 1][j] == '9')
-			{
 				return (ft_puterror2("Map not close\n"));
-			}
+			if ((d->map[i][j] == x[0] || d->map[i][j] == x[1]
+					|| d->map[i][j] == x[2] || d->map[i][j] == x[3])
+					&& d->map[i - 1][j] == '9')
+				return (ft_puterror2("Charac is on border\n"));
 			j++;
 		}
 		i++;
@@ -94,10 +103,10 @@ int				ft_nine(t_data *d)
 	return (0);
 }
 
-void			test(t_data *d)
+static void			ft_replace(t_data *d)
 {
-	int			i;
-	int			j;
+	int				i;
+	int				j;
 
 	i = 0;
 	j = 0;
@@ -118,9 +127,11 @@ void				change_sp_map(t_data *data)
 {
 	int				i;
 	int				j;
+	int				ret;
 
 	i = 0;
 	j = 0;
+	ret = 0;
 	while (i <= data->map_h)
 	{
 		j = 0;
@@ -133,28 +144,8 @@ void				change_sp_map(t_data *data)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < data->map_h + 1)
-	{
-		printf("MAP=%d\t-%s-\n", i, data->map[i]);
-		i++;
-	}
-	int ret;
-	ret = ft_nine(data);
+	ret = ft_end(data);
 	if (ret == 1)
-		exit(EXIT_FAILURE);
-	else
-	{
-		printf("MHHHHH ici?\n");
-		ret = ft_nines(data);
-		printf("MHHHHH la?\n");
-		if (ret == 1)
-		{
-			printf("lerde\n");
-		}
-		else
-			printf("OK\n");
-		test(data);
-		//exit(EXIT_FAILURE);
-	}
+		ft_exit(data);
+	ft_replace(data);
 }

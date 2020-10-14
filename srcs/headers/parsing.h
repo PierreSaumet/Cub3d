@@ -81,7 +81,9 @@ void				init_map(t_map *map);
 **  change_space.c
 */
 void				change_sp_map(t_data *data);
-int					change_sp(t_data *data, int i, int j);
+int					ft_end(t_data *data);
+int					ft_nines(t_data *d);
+int					ft_nine(t_data *d);
 
 /*
 **  parsing_params.c
@@ -96,7 +98,8 @@ void				count_map(t_data *data, char *line);
 int					ft_get_data_end(void);
 int					ft_ret_gnl_pars_param(int fd, int ret,
 						t_data *data);
-int					ft_final_check_c_f(t_data *d, int ret);
+int					ft_final_check_c_f(t_data *d, int ret, int i);
+void				ft_exit(t_data *data);
 
 /*
 ** parsing_map.c
@@ -138,6 +141,8 @@ void				ft_free_map(t_map *map, t_data *data);
 void				ft_free_struct(t_data *data);
 void				ft_free_ptr(t_data *data);
 void				ft_error_map(t_data *data, char *str);
+int					ft_dot(char *txt);
+
 /*
 **  ft_check_map.c
 */

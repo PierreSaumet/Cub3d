@@ -34,11 +34,8 @@ int						ft_bmp_start(char **argv, t_data *data,
 		if (ft_check_empty(argv) == 0)
 		{
 			ft_bmp(argv, data, p_val, map);
-			
 			ft_destroy_texture(p_val);
-			printf("LA\n");
 			ft_bmp_exit(*p_val);
-			printf("LA\n");
 			ft_free_sprite(p_val);
 			ft_free_map_raycasting(p_val);
 		}
@@ -57,8 +54,6 @@ void					ft_bmp_exit(t_parsing p_val)
 		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr);
 	if (p_val.mlx_val.img_ptr2 != NULL)
 		mlx_destroy_image(p_val.mlx_val.mlx_ptr, p_val.mlx_val.img_ptr2);
-	//mlx_clear_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
-	//mlx_destroy_window(p_val.mlx_val.mlx_ptr, p_val.mlx_val.win_ptr);
 	ft_free_mlx_ptr(p_val.mlx_val.mlx_ptr);
 }
 

@@ -72,15 +72,13 @@ void			ft_bmp(char **argv, t_data *data,
 {
 	int			fd;
 
-	/*if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
-		ft_error_map(data, "Cannot open the bmp file\n");*/
+	fd = 0;
 	ft_start_parsing(argv, data, map);
 	ft_init_game(data, parsing_val, 1);
 	ft_raycasting(*parsing_val);
 	if (!(fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)))
 		ft_error_map(data, "Cannot open the bmp file\n");
 	ft_write_bmp(parsing_val, fd);
-	
 }
 
 int				main(int argc, char **argv)
@@ -96,7 +94,6 @@ int				main(int argc, char **argv)
 		if (ft_check_empty(argv) == 0)
 		{
 			ft_start_parsing(argv, &data, &map);
-			
 			ft_init_game(&data, &p_val, 0);
 			ft_start_game(p_val);
 		}

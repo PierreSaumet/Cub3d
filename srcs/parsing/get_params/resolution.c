@@ -63,7 +63,7 @@ int					ft_final_check_r(t_data *data)
 	}
 	else if (data->rx == 0 || data->ry == 0)
 	{
-		ft_puterror("Resolution should not be equal to 0!\n");
+		ft_puterror("Resolutionis not valid!\n");
 		return (1);
 	}
 	return (0);

@@ -13,19 +13,34 @@
 #include "../headers/cub3d.h"
 
 /*
-**              A faire en fonction des fuites memoiresa VALGRIND
+**	This file contains 5 functions:
+**	- 'ft_free_sprite(t_parsing *p_val)':	Free the number of sprite.
+**	- 'ft_free_mlx_ptr(void *mlx_ptr)':		Free the nlx pointer.
+**	- 'ft_destroy_texture(t_parsing *p_val)': Free all the  textures.
+**	- 'ft_free_map_raycasting(t_parsing *p_val)' Free the map.
 */
 
-void				ft_free_sprite(t_parsing *p_val)
+int						ft_dot(char *txt)
+{
+	if (txt[0] == '.' && txt[1] == '/' && ft_isalnum((int)txt[2]) == 1)
+		return (0);
+	else
+	{
+		return (ft_puterror2("File begin with ./\n"));
+	}
+	return (0);
+}
+
+void					ft_free_sprite(t_parsing *p_val)
 {
 	if (p_val->ssp != NULL)
 		free(p_val->ssp);
 	p_val->ssp = NULL;
 }
 
-void				ft_free_mlx_ptr(void *mlx_ptr)
+void					ft_free_mlx_ptr(void *mlx_ptr)
 {
-	struct s_xvar	*xvar;
+	struct s_xvar		*xvar;
 
 	xvar = mlx_ptr;
 	if (xvar->private_cmap)
@@ -34,7 +49,7 @@ void				ft_free_mlx_ptr(void *mlx_ptr)
 	free(xvar);
 }
 
-void				ft_destroy_texture(t_parsing *p_val)
+void					ft_destroy_texture(t_parsing *p_val)
 {
 	if (p_val->n_texture.img != NULL)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->n_texture.id);
@@ -48,9 +63,9 @@ void				ft_destroy_texture(t_parsing *p_val)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->sp_texture.id);
 }
 
-void				ft_free_map_raycasting(t_parsing *p_val)
+void					ft_free_map_raycasting(t_parsing *p_val)
 {
-	int				i;
+	int					i;
 
 	i = 0;
 	while (i < p_val->maph)

@@ -16,6 +16,8 @@
 **	This file contains 4 functions
 **  - 'get_map(char *argv, t_data *data)':  open GNL, read until the map,
 **  allocate the structure called 's_map' with malloc_map.
+**	- 'get_map_gnl(t_data *data, int fd, char *buff)': the next part of the
+**	previous function.
 **  - 'malloc_map(t_data *data, char *buff, int i)':    allocate enough
 **  memory then copy the buffer into the char **map2.
 **  - 'check_index_map(t_data *data)':      check if the map contains only

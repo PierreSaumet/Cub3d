@@ -23,20 +23,23 @@
 
 static void		ft_err_txt(t_parsing *pars_val, t_data *data)
 {
+	int			i;
+
+	i = 0;
 	if (pars_val->mlx_val.img_ptr != NULL)
-		mlx_destroy_image(pars_val->mlx_val.mlx_ptr, pars_val->mlx_val.img_ptr);
+		mlx_destroy_image(pars_val->mlx_val.mlx_ptr,
+			pars_val->mlx_val.img_ptr);
 	if (pars_val->mlx_val.img_ptr2 != NULL)
-		mlx_destroy_image(pars_val->mlx_val.mlx_ptr, pars_val->mlx_val.img_ptr2);
+		mlx_destroy_image(pars_val->mlx_val.mlx_ptr,
+			pars_val->mlx_val.img_ptr2);
 	mlx_clear_window(pars_val->mlx_val.mlx_ptr, pars_val->mlx_val.win_ptr);
 	mlx_destroy_window(pars_val->mlx_val.mlx_ptr, pars_val->mlx_val.win_ptr);
 	ft_free_mlx_ptr(pars_val->mlx_val.mlx_ptr);
-	//printf("LA\n");
 	free(data->pt_no);
 	free(data->pt_so);
 	free(data->pt_we);
 	free(data->pt_ea);
 	free(data->pt_sp);
-	int i = 0;
 	while (i < data->map_h + 1)
 	{
 		free(data->map[i]);
@@ -47,7 +50,7 @@ static void		ft_err_txt(t_parsing *pars_val, t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-int				ft_check_empty2(char *argv)
+int				ft_check_empty_txt(char *argv)
 {
 	int			fd;
 	int			ret;
@@ -74,7 +77,6 @@ static int		ft_set_txt(t_parsing *p_val, t_texture *t, char *src)
 {
 	int			i[3];
 
-	//ft_check_empty2(src);
 	if (t->id)
 	{
 		ft_puterror("texture deja Ok -%s-\n");
@@ -91,44 +93,19 @@ static int		ft_set_txt(t_parsing *p_val, t_texture *t, char *src)
 	return (0);
 }
 
-static void		ft_init_t(t_parsing *p_val)
-{
-	p_val->n_texture.img = NULL;
-	p_val->n_texture.id = NULL;
-	p_val->n_texture.h = 0;
-	p_val->n_texture.w = 0;
-	p_val->s_texture.img = NULL;
-	p_val->s_texture.id = NULL;
-	p_val->s_texture.h = 0;
-	p_val->s_texture.w = 0;
-	p_val->w_texture.img = NULL;
-	p_val->w_texture.id = NULL;
-	p_val->w_texture.h = 0;
-	p_val->w_texture.w = 0;
-	p_val->e_texture.img = NULL;
-	p_val->e_texture.id = NULL;
-	p_val->e_texture.h = 0;
-	p_val->e_texture.w = 0;
-	p_val->sp_texture.img = NULL;
-	p_val->sp_texture.id = NULL;
-	p_val->sp_texture.h = 0;
-	p_val->sp_texture.w = 0;
-}
-
 void			ft_check_txt_empty(t_parsing *p, t_data *d)
 {
-	if (ft_check_empty2(d->pt_no) == 1)
+	if (ft_check_empty_txt(d->pt_no) == 1)
 		ft_err_txt(p, d);
-	if (ft_check_empty2(d->pt_so) == 1)
+	if (ft_check_empty_txt(d->pt_so) == 1)
 		ft_err_txt(p, d);
-	if (ft_check_empty2(d->pt_ea) == 1)
+	if (ft_check_empty_txt(d->pt_ea) == 1)
 		ft_err_txt(p, d);
-	if (ft_check_empty2(d->pt_we) == 1)
+	if (ft_check_empty_txt(d->pt_we) == 1)
 		ft_err_txt(p, d);
-	if (ft_check_empty2(d->pt_sp) == 1)
+	if (ft_check_empty_txt(d->pt_sp) == 1)
 		ft_err_txt(p, d);
 }
-
 
 void			ft_init_texture(t_parsing *pars_val, t_data *data)
 {

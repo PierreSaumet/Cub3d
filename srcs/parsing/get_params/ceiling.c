@@ -106,7 +106,7 @@ int				get_ceilling(t_data *data, char *line)
 		else
 			i++;
 	}
-	return (ft_final_check_c_f(data, ret));
+	return (ft_final_check_c_f(data, ret, 2));
 }
 
 static int		get_digit_f(t_data *data, char *line, int i, int ind)
@@ -160,5 +160,5 @@ int				get_floor(t_data *data, char *line)
 		else
 			i++;
 	}
-	return (ft_final_check_c_f(data, ret));
+	return (ft_final_check_c_f(data, ret, 1));
 }

@@ -163,6 +163,7 @@ int						ft_raycasting(t_parsing pars_val);
 ** ft_init_mlx.c
 */
 void					ft_init_structure(t_parsing *p_st, int i);
+void					ft_init_t(t_parsing *p_val);
 
 /*
 **  ft_init_parsingstruct.c

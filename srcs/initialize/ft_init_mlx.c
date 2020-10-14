@@ -13,13 +13,38 @@
 #include "../headers/cub3d.h"
 
 /*
-**  This file contains 3 functions:
+**  This file contains 4 functions:
+**	- 'ft_init_t(t_parsing *p_val)': init the variables for the textures.
 **  - 'ft_init_structure(t_parsing *p_st)': main loop for initialize the
 **  structure.
 **  - 'ft_init_mlx(t_parsing *parsing_val)': initializes the mlx pointers
 **  - 'ft_check_size_screen(t_parsing *p_val)': checks the size of the
 **  screen.
 */
+
+void					ft_init_t(t_parsing *p_val)
+{
+	p_val->n_texture.img = NULL;
+	p_val->n_texture.id = NULL;
+	p_val->n_texture.h = 0;
+	p_val->n_texture.w = 0;
+	p_val->s_texture.img = NULL;
+	p_val->s_texture.id = NULL;
+	p_val->s_texture.h = 0;
+	p_val->s_texture.w = 0;
+	p_val->w_texture.img = NULL;
+	p_val->w_texture.id = NULL;
+	p_val->w_texture.h = 0;
+	p_val->w_texture.w = 0;
+	p_val->e_texture.img = NULL;
+	p_val->e_texture.id = NULL;
+	p_val->e_texture.h = 0;
+	p_val->e_texture.w = 0;
+	p_val->sp_texture.img = NULL;
+	p_val->sp_texture.id = NULL;
+	p_val->sp_texture.h = 0;
+	p_val->sp_texture.w = 0;
+}
 
 static void				ft_check_size_screen(t_parsing *p_val)
 {

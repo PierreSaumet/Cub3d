@@ -13,7 +13,7 @@
 #include "../headers/cub3d.h"
 
 /*
-**  This file contains 2 functions:
+**  This file contains 5 functions:
 **  - 'quit(char *error_msg)':  get a string (error message), use ft_puterror
 **  and eixt the program.
 **  - 'ft_puterror(char *str)': display the string.
@@ -76,6 +76,7 @@ int				ft_check_empty(char **argv)
 	}
 	free(buf);
 	buf = NULL;
+	close(fd);
 	if (count == 0)
 		return (ft_puterror2("The file is empty\n"));
 	return (0);

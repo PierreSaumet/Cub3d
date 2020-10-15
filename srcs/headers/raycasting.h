@@ -188,6 +188,7 @@ void					ft_left(t_parsing *p_val);
 /*
 **  mvt_cam.c
 */
+void					ft_no_leak(void *mlx_ptr);
 void					ft_cam_r(t_parsing *p_val);
 void					ft_cam_l(t_parsing *p_val);
 int						ft_key_release(int keycode, t_parsing *p_val);

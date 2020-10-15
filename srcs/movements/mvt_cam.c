@@ -13,7 +13,8 @@
 #include "../headers/cub3d.h"
 
 /*
-**  This file contains 4 functions:
+**  This file contains 5 functions:
+**	-'ft_no_leak(void *mlx_ptr)':		Free some variables.
 **  -'ft_cam_r(t_parsing *p_val)':      Rotate the camera on the right side,
 **  use ROTSPEED (0.01, faster? increase it!).
 **  -'ft_cam_l(t_parsing *p_val)':      Rotate the camera on the left side,
@@ -24,10 +25,21 @@
 **  command to 1. (The player is using this command).
 */
 
-void			ft_cam_r(t_parsing *p_val)
+void					ft_no_leak(void *mlx_ptr)
 {
-	double		olddirx;
-	double		oldplanex;
+	struct s_xvar		*xvar;
+
+	xvar = mlx_ptr;
+	if (xvar->win_list->gc)
+		XFreeGC(xvar->display, xvar->win_list->gc);
+	if (xvar->win_list != NULL)
+		free(xvar->win_list);
+}
+
+void					ft_cam_r(t_parsing *p_val)
+{
+	double				olddirx;
+	double				oldplanex;
 
 	olddirx = p_val->dirx;
 	oldplanex = p_val->planex;
@@ -38,10 +50,10 @@ void			ft_cam_r(t_parsing *p_val)
 	p_val->planey = oldplanex * sin(-ROTSPEED) + p_val->planey * cos(-ROTSPEED);
 }
 
-void			ft_cam_l(t_parsing *p_val)
+void					ft_cam_l(t_parsing *p_val)
 {
-	double		olddirx;
-	double		oldplanex;
+	double				olddirx;
+	double				oldplanex;
 
 	olddirx = p_val->dirx;
 	oldplanex = p_val->planex;
@@ -52,7 +64,7 @@ void			ft_cam_l(t_parsing *p_val)
 	p_val->planey = oldplanex * sin(ROTSPEED) + p_val->planey * cos(ROTSPEED);
 }
 
-int				ft_key_release(int keycode, t_parsing *p_val)
+int						ft_key_release(int keycode, t_parsing *p_val)
 {
 	if (keycode == K_W)
 		p_val->mvt.forward = 0;
@@ -69,7 +81,7 @@ int				ft_key_release(int keycode, t_parsing *p_val)
 	return (0);
 }
 
-int				ft_key_push(int keycode, t_parsing *p_val)
+int						ft_key_push(int keycode, t_parsing *p_val)
 {
 	if (keycode == K_W)
 		p_val->mvt.forward = 1;

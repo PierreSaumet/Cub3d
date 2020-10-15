@@ -13,7 +13,7 @@
 #include "../headers/cub3d.h"
 
 /*
-**  This file contains 4 functions:
+**  This file contains 5 functions:
 **  - 'ft_event(*p_val)':     Use mlx_hook and mlx_hook_loop to create
 **  a loop and and get the instructions from the player.
 **  - 'ft_refresh(t_parsing *p_val)':   This function will call 'ft_check_key',
@@ -86,16 +86,18 @@ static int			ft_close_window(t_parsing *p_val)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr);
 	if (p_val->mlx_val.img_ptr2 != NULL)
 		mlx_destroy_image(p_val->mlx_val.mlx_ptr, p_val->mlx_val.img_ptr2);
+	ft_no_leak(p_val->mlx_val.mlx_ptr);
 	ft_free_mlx_ptr(p_val->mlx_val.mlx_ptr);
 	ft_free_sprite(p_val);
 	ft_free_map_raycasting(p_val);
 	exit(EXIT_SUCCESS);
+	return (0);
 }
 
 void				ft_event(t_parsing *p_val)
 {
 	mlx_hook(p_val->mlx_val.win_ptr, 3, 1L << 1, ft_key_release, p_val);
 	mlx_hook(p_val->mlx_val.win_ptr, 2, 1L << 0, ft_key_press, p_val);
-	mlx_hook(p_val->mlx_val.win_ptr, 17, 1L << 17, ft_close_window, p_val);
+	mlx_hook(p_val->mlx_val.win_ptr, 33, 1L << 17, ft_close_window, p_val);
 	mlx_loop_hook(p_val->mlx_val.mlx_ptr, ft_refresh, p_val);
 }

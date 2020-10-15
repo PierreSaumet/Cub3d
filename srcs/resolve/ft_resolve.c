@@ -69,7 +69,7 @@ static void		ft_find_carac(t_map *map, t_data *data)
 		while (j < data->map_w + 1)
 		{
 			if (map->map2[i][j] == 'S' || map->map2[i][j] == 'N'
-					|| map->map2[i][j] == 'S' || map->map2[i][j] == 'W')
+					|| map->map2[i][j] == 'E' || map->map2[i][j] == 'W')
 			{
 				map->x_c = j;
 				map->y_c = i;
